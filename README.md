@@ -1,1 +1,1 @@
-# mynix-minimal
+# mynix-stable
