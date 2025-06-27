@@ -55,6 +55,14 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+  
+  # Enable automatic login for the user.
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "ivan";
+
+  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -66,7 +74,7 @@
     description = "ivan";
     hashedPassword = "$6$GBmyYg5sZUOA2AlO$MfIpp6XDGgLsDZEBETIrxcSpgBPRfNtXgGJ3GZ3DBYQ4tspWu/DvGCQQ8H1r4YD0JxSaNbM20mlwXjbhRXv0b.";
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICsoTnbsIqZmmmmWaIPWpJ7sozpBEYJF7JYDXYDL3XV6 ivan@nixos"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN2NSl9nTSD2XcajhK2C/fjSx0l1uhpyCVZB6hw0uI4m"
     ];
     extraGroups = [
       "wheel"
@@ -75,13 +83,6 @@
     createHome = true;
     home = "/home/ivan";
   };
-  # Enable automatic login for the user.
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "ivan";
-
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
 
   # Install firefox.
   programs.firefox.enable = true;
