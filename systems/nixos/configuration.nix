@@ -6,6 +6,7 @@
     ./bluetooth.nix
     ./audio.nix
     ./network.nix
+    ./gnome.nix
   ];
   programs.ssh = {
     package = pkgs.openssh; # Явное указание пакета
@@ -52,18 +53,7 @@
     xkb.variant = "";
     xkb.options = "grp:alt_shift_toggle,ctrl:nocaps";
   };
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-  
-  # Enable automatic login for the user.
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "ivan";
-
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
-
+ 
   # Enable CUPS to print documents.
   services.printing.enable = true;
   programs.fish.enable = true;
