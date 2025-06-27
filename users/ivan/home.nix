@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 {
   imports = [
-    ./home-packages.nix
+    ./packages.nix
   ];
   home = {
     username = "ivan";
@@ -9,7 +9,6 @@
     stateVersion = "25.05";
   };
 
-  #home.enableNixpkgsReleaseCheck = false;
   programs.fish = {
     enable = true;
     shellAliases = {
@@ -127,10 +126,10 @@
       };
       ui_font_size = lib.mkForce 25;
       buffer_font_size = lib.mkForce 25;
-      theme = {
-        mode = lib.mkForce "system";
-        light = lib.mkForce "One Light";
-        dark = lib.mkForce "Gruvbox Dark Hard";
+      theme = lib.mkForce {
+        mode =  "system";
+        light = "One Light";
+        dark = "Gruvbox Dark Hard";
       };
       show_whitespaces = "all";
     };
