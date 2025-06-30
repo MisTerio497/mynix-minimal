@@ -32,7 +32,6 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
-        config.allowUnfree = true;
       };
       lib = nixpkgs.lib;
 
@@ -60,6 +59,7 @@
                     ./users/ivan/home.nix
                     stylix.homeModules.stylix
                   ];
+                  home.stateVersion = "25.05";
                 };
               };
             }

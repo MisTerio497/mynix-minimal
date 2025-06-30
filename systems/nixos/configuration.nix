@@ -7,6 +7,7 @@
     ./audio.nix
     ./network.nix
     ./gnome.nix
+    ./xray.nix
   ];
   programs.ssh = {
     package = pkgs.openssh; # Явное указание пакета

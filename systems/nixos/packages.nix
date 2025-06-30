@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  nixpkgs.config.allowUnfree = true;
   fonts.packages = with pkgs; [
     corefonts
   ];
