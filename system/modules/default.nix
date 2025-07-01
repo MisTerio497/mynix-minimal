@@ -6,7 +6,6 @@
     ./network.nix
     ./hyprland.nix
     ./gnome.nix
-    ./xray.nix
     ./zram.nix
   ];
 }

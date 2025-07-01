@@ -1,3 +1,2 @@
-hardware-configuration.nix
+system/hardware-configuration.nix
 flake.lock
-systems/nixos/xray.nix
