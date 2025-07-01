@@ -18,6 +18,8 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    illogical-impulse.url = "github:bigsaltyfishes/end-4-dots";
+    illogical-impulse.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -28,6 +30,7 @@
       stylix,
       hyprland,
       nix-flatpak,
+      illogical-impulse,
       ...
     }@inputs:
     let
@@ -50,7 +53,6 @@
             ./disko.nix
             disko.nixosModules.disko
             home-manager.nixosModules.home-manager
-            
             {
               home-manager = {
                 useGlobalPkgs = false;
@@ -61,6 +63,7 @@
                     ./user/home.nix
                     nix-flatpak.homeModules.nix-flatpak
                     stylix.homeModules.stylix
+                    illogical-impulse.homeManagerModules.default
                   ];
                 };
               };
