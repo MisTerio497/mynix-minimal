@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.programs.tun2socks;
+  cfg = config.services.tun2socks;
 
   resolveDomains = pkgs.writeScript "resolve-domains.sh" ''
     #!/bin/sh
@@ -106,7 +106,6 @@ in
             --netif-ipaddr 10.0.0.2 \
             --netif-netmask 255.255.255.0 \
             --socks-server-addr ${cfg.proxy} \
-            ${optionalString (cfg.whitelist != []) "--whitelist ${toString cfg.whitelist}"} \
             ${toString cfg.extraArgs}
         '';
         ExecStopPost = shutdownScript;

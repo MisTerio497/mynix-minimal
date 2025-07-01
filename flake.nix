@@ -17,6 +17,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
   };
 
   outputs =
@@ -26,6 +27,7 @@
       disko,
       stylix,
       hyprland,
+      nix-flatpak,
       ...
     }@inputs:
     let
@@ -34,7 +36,6 @@
         inherit system;
       };
       lib = nixpkgs.lib;
-
     in
     {
       nixosConfigurations = {
@@ -45,21 +46,22 @@
             inherit inputs;
           };
           modules = [
-            ./systems/nixos/configuration.nix
-            ./hardware-configuration.nix
+            ./system/configuration.nix
             ./disko.nix
             disko.nixosModules.disko
             home-manager.nixosModules.home-manager
+            
             {
               home-manager = {
-                useGlobalPkgs = true;
+                useGlobalPkgs = false;
                 useUserPackages = true;
+                extraSpecialArgs = specialArgs;
                 users.ivan = {
                   imports = [
-                    ./users/ivan/home.nix
+                    ./user/home.nix
+                    nix-flatpak.homeModules.nix-flatpak
                     stylix.homeModules.stylix
                   ];
-                  home.stateVersion = "25.05";
                 };
               };
             }

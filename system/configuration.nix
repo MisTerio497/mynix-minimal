@@ -2,12 +2,8 @@
 
 {
   imports = [
-    ./packages.nix
-    ./bluetooth.nix
-    ./audio.nix
-    ./network.nix
-    ./gnome.nix
-    ./xray.nix
+    ./modules
+    ./hardware-configuration.nix
   ];
   programs.ssh = {
     package = pkgs.openssh; # Явное указание пакета
@@ -74,7 +70,7 @@
     createHome = true;
     home = "/home/ivan";
   };
-
+  
   # Install firefox.
   programs.firefox.enable = true;
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
