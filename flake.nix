@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,18 +33,14 @@
   outputs =
     {
       nixpkgs,
-      nixpkgs-unstable,
       home-manager,
       disko,
+      stylix,
       ...
     }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
-      pkgs-unstable = import nixpkgs-unstable {
         inherit system;
         config.allowUnfree = true;
       };
@@ -55,7 +51,7 @@
         nixos = lib.nixosSystem rec {
           inherit system;
           specialArgs = {
-            inherit inputs pkgs pkgs-unstable;
+            inherit inputs;
           };
           modules = [
             ./system/configuration.nix
@@ -71,6 +67,7 @@
                 users.ivan = {
                   imports = [
                     ./user/home.nix
+                    stylix.homeModules.stylix
                   ];
                 };
               };
