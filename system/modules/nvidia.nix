@@ -14,20 +14,21 @@
     graphics = {
       enable = true;
       enable32Bit = true;
+      extraPackages = with pkgs; [ vaapiVdpau ];
     };
-    # amdgpu.amdvlk = {
-    #   enable = true;
-    #   support32Bit.enable = true;
-    # };
+    amdgpu.amdvlk = {
+      enable = true;
+      support32Bit.enable = true;
+    };
   };
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.production;
     open = false;
     modesetting.enable = true;
     forceFullCompositionPipeline = true;
     powerManagement = {
-      enable = false;
-      finegrained = false;
+      enable = true;
+      finegrained = true;
     };
     nvidiaSettings = true;
     prime = {

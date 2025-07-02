@@ -27,10 +27,7 @@
       nixpkgs,
       home-manager,
       disko,
-      stylix,
       hyprland,
-      nix-flatpak,
-      # illogical-impulse,
       ...
     }@inputs:
     let
@@ -58,12 +55,10 @@
                 useGlobalPkgs = false;
                 useUserPackages = true;
                 extraSpecialArgs = specialArgs;
+                backupFileExtension = "backup";
                 users.ivan = {
                   imports = [
                     ./user/home.nix
-                    nix-flatpak.homeManagerModules.nix-flatpak
-                    stylix.homeModules.stylix
-                    #illogical-impulse.homeManagerModules.default
                   ];
                 };
               };

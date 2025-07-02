@@ -3,7 +3,8 @@
     ./packages.nix
     ./zed.nix
     ./git.nix
-    ./stylix.nix
+    ./flatpak.nix
+    #./stylix.nix
     ./shell.nix
   ];
 }

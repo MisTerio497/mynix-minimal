@@ -1,13 +1,24 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 {
-  services.desktopManager.plasma6.enable = true;
-  services.displayManager.sddm.enable = true;
-  
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "ivan";
-  
-  environment.systemPackages = with pkgs; [ 
-    kdePackages.breeze-gtk
-    kdePackages.breeze
+  services = {
+    desktopManager = {
+      plasma6.enable = true;
+    };
+    displayManager = {
+      sddm.enable = true;
+      sddm.wayland.enable = true;
+      autoLogin.enable = true;
+      autoLogin.user = "ivan";
+    };
+  };
+
+  environment.systemPackages = with pkgs; [
+    kdePackages.discover # Optional: Install if you use Flatpak or fwupd firmware update sevice
+    kdePackages.kcalc # Calculator
+    kdePackages.ksystemlog # KDE SystemLog Application
+    kdePackages.sddm-kcm # Configuration module for SDDM
+    kdePackages.partitionmanager # Optional Manage the disk devices, partitions and fil
+    wayland-utils # Wayland utilities
+    wl-clipboard # Command-line copy/paste utilities for Wayland
   ];
 }

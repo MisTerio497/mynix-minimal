@@ -4,14 +4,14 @@
   networking = {
     hostName = "nixos";
     nameservers = [
-      "8.8.8.8"
       "1.1.1.1"
+      "8.8.8.8"
     ];
     networkmanager = {
       enable = false;
       wifi.powersave = false;
     };
-    useDHCP = false;
+    useDHCP = true;
     wireless = {
       enable = true;
       networks = {
