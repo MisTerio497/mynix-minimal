@@ -47,9 +47,11 @@
     efi.canTouchEfiVariables = true;
   };
   boot.supportedFilesystems = [ "ntfs" ];
-  # boot.kernelParams = [
-  #   "acpi=off"
-  # ];
+  boot.kernelParams = [
+    # Уменьшить уровень логов ACPI
+    "loglevel=4" # 3 (только ошибки), 4 (предупреждения + ошибки)
+    "quiet" # скрыть большинство сообщений ядра
+  ];
 
   services.power-profiles-daemon.enable = true;
   nix.optimise.automatic = true;

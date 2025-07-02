@@ -10,6 +10,7 @@
     "nvidia"
     "amdgpu"
   ];
+  boot.blacklistedKernelModules = [ "nouveau" ];
   hardware = {
     graphics = {
       enable = true;
@@ -22,7 +23,7 @@
     };
   };
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
     open = false;
     modesetting.enable = true;
     forceFullCompositionPipeline = true;
@@ -33,12 +34,16 @@
     nvidiaSettings = true;
     prime = {
       offload = {
-        enable = true;
+        enable = false;
         enableOffloadCmd = true;
       };
-      sync.enable = false;
+      sync.enable = true;
       amdgpuBusId = "PCI:53:0:0"; # Converted from 35:00.0
       nvidiaBusId = "PCI:1:0:0"; # Converted from 01:00.0
     };
   };
+  environment.systemPackages = with pkgs; [
+    nvidia-utils
+    nvidia-settings
+  ];
 }
