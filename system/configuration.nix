@@ -22,7 +22,6 @@
     startAgent = true; # Автозапуск ssh-agent
   };
   
-
   services.power-profiles-daemon.enable = true;
   programs.dconf.enable = true;
   # Enable the X11 windowing system.

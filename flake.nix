@@ -21,12 +21,15 @@
       url = "github:winapps-org/winapps";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix = {
+      url = "github:ryantm/agenix";
+    };
     hyprland.url = "github:hyprwm/Hyprland";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    illogical-impulse = {
-      url = "github:bigsaltyfishes/end-4-dots";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # illogical-impulse = {
+    #   url = "github:bigsaltyfishes/end-4-dots";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs =
@@ -35,6 +38,7 @@
       home-manager,
       disko,
       stylix,
+      agenix,
       ...
     }@inputs:
     let
@@ -53,17 +57,16 @@
           ./disko.nix
           disko.nixosModules.disko
           stylix.nixosModules.stylix
-
+          agenix.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             home-manager = {
-              useGlobalPkgs = true; # Важно для совместимости
+              useGlobalPkgs = false;
               useUserPackages = true;
               extraSpecialArgs = { inherit inputs; };
               users.ivan = {
                 imports = [
                   ./user/home.nix
-                  # Дублируем для user-level стилизации
                   stylix.homeModules.stylix
                 ];
               };
