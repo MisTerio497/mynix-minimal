@@ -11,7 +11,6 @@
       enable = false;
       wifi.powersave = false;
     };
-    useDHCP = true;
     wireless = {
       enable = true;
       networks = {

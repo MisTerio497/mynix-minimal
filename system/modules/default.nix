@@ -5,6 +5,7 @@
     ./audio.nix
     ./network.nix
     ./kde.nix
+    ./steam.nix
     ./zram.nix
   ];
 }
