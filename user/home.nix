@@ -2,7 +2,7 @@
 {
   imports = [
     ./modules
-    #./wm/hypr.nix
+    ./wm/hypr.nix
   ];
   home = {
     username = "ivan";

@@ -16,10 +16,17 @@
       url = "github:nix-community/disko/latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    winapps = {
+      url = "github:winapps-org/winapps";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     hyprland.url = "github:hyprwm/Hyprland";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    # illogical-impulse.url = "github:bigsaltyfishes/end-4-dots";
-    # illogical-impulse.inputs.nixpkgs.follows = "nixpkgs";
+    affinity-nix.url = "github:mrshmllow/affinity-nix";
+    illogical-impulse = {
+      url = "github:xBLACKICEx/end-4-dots-hyprland-nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
