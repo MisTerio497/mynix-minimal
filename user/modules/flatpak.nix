@@ -17,5 +17,9 @@
       }
     ];
     packages = [ "ru.linux_gaming.PortProton" ];
+    update.auto = {
+      enable = true;
+      onCalendar = "weekly"; # Default value
+    };
   };
 }

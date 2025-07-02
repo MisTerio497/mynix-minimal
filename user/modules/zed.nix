@@ -82,7 +82,7 @@
         Nix = {
           tab_size = 2;
           language_servers = [
-            "nil"
+            "!nil"
             "nixd"
           ];
         };

@@ -66,7 +66,7 @@
     LC_TELEPHONE = "ru_RU.UTF-8";
     LC_TIME = "ru_RU.UTF-8";
   };
-
+  programs.dconf.enable = true;
   # Enable the X11 windowing system.
   services.libinput.enable = true;
   services.xserver = {
@@ -85,9 +85,6 @@
     isNormalUser = true;
     description = "ivan";
     hashedPassword = "$6$GBmyYg5sZUOA2AlO$MfIpp6XDGgLsDZEBETIrxcSpgBPRfNtXgGJ3GZ3DBYQ4tspWu/DvGCQQ8H1r4YD0JxSaNbM20mlwXjbhRXv0b.";
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN2NSl9nTSD2XcajhK2C/fjSx0l1uhpyCVZB6hw0uI4m"
-    ];
     extraGroups = [
       "wheel"
     ];

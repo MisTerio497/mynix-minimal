@@ -5,7 +5,7 @@
       zed = "zeditor";
       cls = "clear";
       ll = "ls -la";
-      re = "sudo nixos-rebuild switch --flake ~/nix#nixos && sh /home/ivan/nix/build.sh";
+      re = "sudo nixos-rebuild switch --flake ~/mynix-minimal#nixos";
       helix = "hx";
     };
   };
