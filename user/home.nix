@@ -2,6 +2,7 @@
 {
   imports = [
     ./modules
+    ./wm/hypr.nix
   ];
   home = {
     username = "ivan";

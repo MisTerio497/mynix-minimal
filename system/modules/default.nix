@@ -4,7 +4,7 @@
     ./bluetooth.nix
     ./audio.nix
     ./network.nix
-    ./gnome.nix
+    ./kde.nix
     ./zram.nix
   ];
 }

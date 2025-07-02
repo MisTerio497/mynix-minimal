@@ -2,7 +2,22 @@
 {
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver = {
+      enable = true;
+      desktopManager.gnome = {
+        enable = true;
+        excludePackages = with pkgs; [
+          gnome-tour       # Исключить GNOME Tour
+          epiphany         # Исключить веб-браузер Epiphany
+          gnome-connections # Исключить удалённые подключения
+          gnome-contacts   # Исключить контакты
+          gnome-maps      # Исключить карты
+          gnome-weather   # Исключить погоду
+          gnome-music     # Исключить музыку
+          cheese          # Исключить Cheese (веб-камера)
+        ];
+      };
+    };
   
   # Enable automatic login for the user.
   services.displayManager.autoLogin.enable = true;

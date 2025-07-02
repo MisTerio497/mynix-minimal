@@ -18,8 +18,8 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    illogical-impulse.url = "github:bigsaltyfishes/end-4-dots";
-    illogical-impulse.inputs.nixpkgs.follows = "nixpkgs";
+    # illogical-impulse.url = "github:bigsaltyfishes/end-4-dots";
+    # illogical-impulse.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -30,7 +30,7 @@
       stylix,
       hyprland,
       nix-flatpak,
-      illogical-impulse,
+      # illogical-impulse,
       ...
     }@inputs:
     let
@@ -61,9 +61,9 @@
                 users.ivan = {
                   imports = [
                     ./user/home.nix
-                    nix-flatpak.homeModules.nix-flatpak
+                    nix-flatpak.homeManagerModules.nix-flatpak
                     stylix.homeModules.stylix
-                    illogical-impulse.homeManagerModules.default
+                    #illogical-impulse.homeManagerModules.default
                   ];
                 };
               };
