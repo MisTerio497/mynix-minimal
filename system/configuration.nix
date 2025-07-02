@@ -6,29 +6,29 @@
     ./hardware-configuration.nix
   ];
   nix.settings.substituters = [
-      "https://cache.nixos.org"
-      "https://nix-community.cachix.org" # Популярные бинарные сборки
+    "https://cache.nixos.org"
+    "https://nix-community.cachix.org" # Популярные бинарные сборки
+  ];
+  nix.settings.trusted-public-keys = [
+    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  ];
+  nix.gc = {
+    automatic = true;
+    dates = "weekly"; # Очистка раз в неделю
+    options = "--delete-older-than 7d"; # Удалить всё старше 7 дней
+  };
+  system.autoUpgrade = {
+    enable = true;
+    flake = "/home/ivan/mynix-minimal";
+    flags = [
+      "--update-input"
+      "nixpkgs"
     ];
-    nix.settings.trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];
-    nix.gc = {
-      automatic = true;
-      dates = "weekly"; # Очистка раз в неделю
-      options = "--delete-older-than 7d"; # Удалить всё старше 7 дней
-    };
-    system.autoUpgrade = {
-      enable = true;
-      flake = "/home/ivan/mynix-minimal";
-      flags = [
-        "--update-input"
-        "nixpkgs"
-      ];
-      dates = "weekly";
-      allowReboot = false;
-      randomizedDelaySec = "30min"; # случайная задержка
-    };
+    dates = "weekly";
+    allowReboot = false;
+    randomizedDelaySec = "30min"; # случайная задержка
+  };
   programs.ssh = {
     package = pkgs.openssh; # Явное указание пакета
     startAgent = true; # Автозапуск ssh-agent
@@ -46,7 +46,11 @@
     };
     efi.canTouchEfiVariables = true;
   };
-  
+  boot.supportedFilesystems = [ "ntfs" ];
+  # boot.kernelParams = [
+  #   "acpi=off"
+  # ];
+
   services.power-profiles-daemon.enable = true;
   nix.optimise.automatic = true;
   # Set your time zone.
@@ -75,7 +79,7 @@
     xkb.variant = "";
     xkb.options = "grp:alt_shift_toggle,ctrl:nocaps";
   };
- 
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
   programs.fish.enable = true;
@@ -92,7 +96,7 @@
     createHome = true;
     home = "/home/ivan";
   };
-  
+
   # Install firefox.
   programs.firefox.enable = true;
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
