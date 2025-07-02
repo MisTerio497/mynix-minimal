@@ -23,7 +23,6 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    affinity-nix.url = "github:mrshmllow/affinity-nix";
     illogical-impulse = {
       url = "github:bigsaltyfishes/end-4-dots";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,36 +43,33 @@
         inherit system;
         config.allowUnfree = true;
       };
-      lib = nixpkgs.lib;
     in
     {
-      nixosConfigurations = {
-        nixos = lib.nixosSystem rec {
-          inherit system;
-          specialArgs = {
-            inherit inputs;
-          };
-          modules = [
-            ./system/configuration.nix
-            ./disko.nix
-            disko.nixosModules.disko
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = false;
-                useUserPackages = true;
-                extraSpecialArgs = specialArgs;
-                backupFileExtension = "backup";
-                users.ivan = {
-                  imports = [
-                    ./user/home.nix
-                    stylix.homeModules.stylix
-                  ];
-                };
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./system/configuration.nix
+          ./disko.nix
+          disko.nixosModules.disko
+          stylix.nixosModules.stylix
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true; # Важно для совместимости
+              useUserPackages = true;
+              extraSpecialArgs = { inherit inputs; };
+              users.ivan = {
+                imports = [
+                  ./user/home.nix
+                  # Дублируем для user-level стилизации
+                  stylix.homeModules.stylix
+                ];
               };
-            }
-          ];
-        };
+            };
+          }
+        ];
       };
     };
 }
