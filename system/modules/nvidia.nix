@@ -34,16 +34,12 @@
     nvidiaSettings = true;
     prime = {
       offload = {
-        enable = false;
+        enable = true;
         enableOffloadCmd = true;
       };
-      sync.enable = true;
+      sync.enable = false;
       amdgpuBusId = "PCI:53:0:0"; # Converted from 35:00.0
       nvidiaBusId = "PCI:1:0:0"; # Converted from 01:00.0
     };
   };
-  environment.systemPackages = with pkgs; [
-    nvidia-utils
-    nvidia-settings
-  ];
 }
