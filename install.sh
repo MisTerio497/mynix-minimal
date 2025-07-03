@@ -9,7 +9,7 @@ cp -r . "$CONFIG_DIR"
 
 # Генерация hardware-configuration.nix
 echo "Генерируем hardware-configuration.nix..."
-nixos-generate-config --show-hardware-config --no-filesystems > "$CONFIG_DIR/hardware-configuration.nix"
+nixos-generate-config --show-hardware-config --no-filesystems > "$CONFIG_DIR/system/hardware-configuration.nix"
 
 # Установка системы
 echo "Начинаем установку NixOS..."
