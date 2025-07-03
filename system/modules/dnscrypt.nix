@@ -1,26 +1,18 @@
 {
-  services.dnscrypt-proxy = {
+  services.dnscrypt-proxy2 = {
     enable = true;
     settings = {
-      # Используем Cloudflare DNS
-      server_names = [ "cloudflare" ];  
-      
-      # Слушаем на localhost (127.0.0.1)
-      listen_addresses = [ "127.0.0.1:53" ];
-      
-      # Разрешить только TCP (опционально)
-      force_tcp = false;
-      
-      # Включить кэширование
-      cache = true;
-      
-      # Блокировка рекламы и трекеров (опционально)
-      blocked_query_response = "refused";
-      blocked_ip_response = "refused";
-      
-      # Использовать DNSSEC
-      dnscrypt_ephemeral_keys = true;
-      dnssec_validation = true;
+      ipv6_servers = true;
+      require_dnssec = true;
+      server_names = [ "cloudflare" ];
+      sources.public-resolvers = {
+        urls = [
+          "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
+          "https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
+        ];
+        cache_file = "/var/cache/dnscrypt-proxy/public-resolvers.md";
+        minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
+      };
     };
   };
 }
