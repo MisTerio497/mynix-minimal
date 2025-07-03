@@ -11,5 +11,6 @@
     ./nix-settings.nix
     ./steam.nix
     ./zram.nix
+    ./xray.nix
   ];
 }

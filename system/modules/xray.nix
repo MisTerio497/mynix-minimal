@@ -1,12 +1,14 @@
-
 { config, pkgs, ... }:
 let
-  secrets = import config.age.secrets.xray-config.path;
-in {
+  # Получаем путь к секрету через конфиг NixOS
+  raw = builtins.readFile config.age.secrets.xray.path;
+  secrets = import (builtins.toFile "decoded.nix" raw);
+in
+{
   imports = [ ./tun2xray.nix ];
 
   services.tun2socks = {
-    enable = false;
+    enable = true;
     interface = "tun0";
     proxy = "socks5://127.0.0.1:10808";
     whitelist = [
@@ -18,12 +20,14 @@ in {
       "data.services.jetbrains.com"
     ];
   };
+  
+
   age.identityPaths = [ "/home/ivan/.config/age/keys.txt" ];
-  age.secrets.xray-config = {
+  age.secrets.xray = {
     file = ./secrets/xray-secrets.age;
     owner = "ivan";
-    mode = "0400";
   };
+
   services.xray = {
     enable = true;
     settings = {

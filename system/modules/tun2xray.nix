@@ -4,97 +4,81 @@ with lib;
 
 let
   cfg = config.services.tun2socks;
-  interface = cfg.interface;
 
-  resolveDomains = pkgs.writeScriptBin "resolve-domains" ''
+  resolveDomains = pkgs.writeScript "resolve-domains.sh" ''
     #!/bin/sh
-    for domain in ${concatStringsSep " " cfg.whitelist}; do
-      ${pkgs.dnsutils}/bin/dig +short "$domain" |
-        grep -E '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$' || true
-    done | sort -u
+    ${pkgs.dnsutils}/bin/dig +short ${toString cfg.whitelist} | grep -E '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$'
   '';
 
-  startupScript = pkgs.writeScriptBin "tun2socks-start" ''
+  startupScript = pkgs.writeScript "tun2socks-start.sh" ''
     #!/bin/sh
-    set -e
-    ip tuntap add mode tun dev $interface
-    ip addr add 198.18.0.1/15 dev $interface
-    ip link set dev $interface up
-    echo "Enabling IP forwarding..."
     echo 1 > /proc/sys/net/ipv4/ip_forward
 
-    echo "Waiting for DNS to be available..."
-    for i in $(seq 1 30); do
-      ${pkgs.dnsutils}/bin/dig +short google.com >/dev/null && break
-      sleep 1
+    # Создаем TUN-интерфейс если его нет
+    if ! ${pkgs.iproute2}/bin/ip link show ${cfg.interface} >/dev/null 2>&1; then
+      ${pkgs.iproute2}/bin/ip tuntap add mode tun dev ${cfg.interface}
+      ${pkgs.iproute2}/bin/ip addr add 10.0.0.1/24 dev ${cfg.interface}
+      ${pkgs.iproute2}/bin/ip link set dev ${cfg.interface} up
+    fi
+
+    # Добавляем маршруты для доменов из whitelist
+    for ip in $(${resolveDomains}); do
+      ${pkgs.iproute2}/bin/ip route add $ip via 10.0.0.2 dev ${cfg.interface} || true
     done
 
-    echo "Setting routes and iptables rules for whitelist..."
-    for ip in $(${resolveDomains}/bin/resolve-domains); do
-      echo "Adding route to $ip via 10.0.0.2"
-      ${pkgs.iproute2}/bin/ip route add "$ip" via 10.0.0.2 dev "${interface}" 2>/dev/null || true
+    # NAT и маркировка пакетов
+    ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -o ${cfg.interface} -j MASQUERADE
+    ${pkgs.iptables}/bin/iptables -A OUTPUT -t mangle -m mark --mark 100 -j ACCEPT
 
-      echo "Marking traffic to $ip"
-      ${pkgs.iptables}/bin/iptables -t mangle -A OUTPUT -d "$ip" -j MARK --set-mark 100 2>/dev/null || true
+    for ip in $(${resolveDomains}); do
+      ${pkgs.iptables}/bin/iptables -t mangle -A OUTPUT -d $ip -j MARK --set-mark 100
     done
-
-    ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -o ${interface} -j MASQUERADE 2>/dev/null || true
-    ${pkgs.iptables}/bin/iptables -A OUTPUT -t mangle -m mark --mark 100 -j ACCEPT 2>/dev/null || true
-
-    echo "tun2socks setup complete."
   '';
 
-  shutdownScript = pkgs.writeScriptBin "tun2socks-stop" ''
+  shutdownScript = pkgs.writeScript "tun2socks-stop.sh" ''
     #!/bin/sh
-    echo "Tearing down tun2socks routes and iptables rules..."
-
-    ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -o ${interface} -j MASQUERADE 2>/dev/null || true
+    ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -o ${cfg.interface} -j MASQUERADE 2>/dev/null || true
     ${pkgs.iptables}/bin/iptables -D OUTPUT -t mangle -m mark --mark 100 -j ACCEPT 2>/dev/null || true
 
-    for ip in $(${resolveDomains}/bin/resolve-domains); do
-      echo "Removing route to $ip"
-      ${pkgs.iproute2}/bin/ip route del "$ip" via 10.0.0.2 dev "${interface}" 2>/dev/null || true
-
-      echo "Removing mangle rule for $ip"
-      ${pkgs.iptables}/bin/iptables -t mangle -D OUTPUT -d "$ip" -j MARK --set-mark 100 2>/dev/null || true
+    for ip in $(${resolveDomains}); do
+      ${pkgs.iptables}/bin/iptables -t mangle -D OUTPUT -d $ip -j MARK --set-mark 100 2>/dev/null || true
+      ${pkgs.iproute2}/bin/ip route del $ip via 10.0.0.2 dev ${cfg.interface} 2>/dev/null || true
     done
-
-    echo "tun2socks teardown complete."
   '';
 in
 {
   options.services.tun2socks = {
-    enable = mkEnableOption "tun2socks routing service";
+    enable = mkEnableOption "tun2socks configuration";
 
     package = mkOption {
       type = types.package;
-      default = pkgs.tun2socks;
-      defaultText = literalExpression "pkgs.tun2socks";
-      description = "tun2socks binary package";
+      default = pkgs.badvpn;
+      defaultText = literalExpression "pkgs.badvpn";
+      description = "Package providing tun2socks";
     };
 
     interface = mkOption {
       type = types.str;
       default = "tun0";
-      description = "Name of the TUN interface (e.g., tun0)";
+      description = "TUN interface name";
     };
 
     proxy = mkOption {
       type = types.str;
       example = "socks5://127.0.0.1:1080";
-      description = "SOCKS5 proxy address to use with tun2socks";
+      description = "Proxy address (e.g., SOCKS5)";
     };
 
     whitelist = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      description = "List of domain names whose IPs should be routed through tun2socks";
+      default = [];
+      description = "List of domains to route through the tunnel";
     };
 
     extraArgs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      description = "Additional CLI arguments to pass to tun2socks";
+      default = [];
+      description = "Additional CLI arguments for tun2socks";
     };
   };
 
@@ -108,35 +92,23 @@ in
 
     boot.kernelModules = [ "tun" ];
 
-    # networking.interfaces.${interface} = {
-    #   virtual = true;
-    #   virtualType = "tun";
-    #   ipv4.addresses = [
-    #     {
-    #       address = "198.18.0.1/15";
-    #       prefixLength = 24;
-    #     }
-    #   ];
-    # };
-
     systemd.services.tun2socks = {
-      description = "Route selected traffic through tun2socks";
+      description = "tun2socks service";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "nss-lookup.target" ];
+      after = [ "network.target" ];
       requires = [ "network.target" ];
 
-      path = with pkgs; [ iproute2 iptables dnsutils ];
-
       serviceConfig = {
-        ExecStartPre = "${startupScript}/bin/tun2socks-start";
+        ExecStartPre = startupScript;
         ExecStart = ''
           ${cfg.package}/bin/tun2socks \
-            -device ${cfg.interface} \
-            -proxy ${cfg.proxy} \
-            -fwmark 100 \
-            ${concatStringsSep " " cfg.extraArgs}
+            --tundev ${cfg.interface} \
+            --netif-ipaddr 10.0.0.2 \
+            --netif-netmask 255.255.255.0 \
+            --socks-server-addr ${cfg.proxy} \
+            ${toString cfg.extraArgs}
         '';
-        ExecStopPost = "${shutdownScript}/bin/tun2socks-stop";
+        ExecStopPost = shutdownScript;
         Restart = "on-failure";
         RestartSec = "5s";
         Type = "simple";
