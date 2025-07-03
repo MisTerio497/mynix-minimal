@@ -1,5 +1,6 @@
 { pkgs, lib, ... }:
 {
+  services.adguardhome.enable = true;
   services.zerotierone.enable = true;
   networking = {
     hostName = "nixos";
@@ -28,6 +29,15 @@
           psk = "12345678ggawp";
         };
       };
+    };
+    hosts = {
+      "0.0.0.0" = [
+        "pubads.g.doubleclick.net"
+        "securepubads.g.doubleclick.net"
+        "gads.pubmatic.com"
+        "ads.pubmatic.com"
+        "spclient.wg.spotify.com"
+      ];
     };
   };
 }

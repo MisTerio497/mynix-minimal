@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-
+    nixos-boot.url = "github:Melkor333/nixos-boot";
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,10 +26,11 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    illogical-impulse = {
-      url = "github:bigsaltyfishes/end-4-dots";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    # illogical-impulse = {
+    #   url = "github:bigsaltyfishes/end-4-dots";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs =
