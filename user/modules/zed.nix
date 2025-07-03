@@ -58,6 +58,14 @@
       "one-dark-pro"
       "catppuccin-blur"
     ];
+    # "edit_predictions": {
+    #     "mode": "eager",
+    #     "copilot": {
+    #       "proxy": null,
+    #       "proxy_no_verify": null
+    #     },
+    #     "enabled_in_text_threads": false
+    #   },
     userSettings = {
       features = {
         inline_completion_provider = "none";
