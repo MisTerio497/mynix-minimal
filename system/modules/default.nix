@@ -7,6 +7,7 @@
     ./network.nix
     ./nvidia.nix
     ./kde.nix
+    ./dnscrypt.nix
     ./intern.nix
     ./nix-settings.nix
     ./steam.nix
