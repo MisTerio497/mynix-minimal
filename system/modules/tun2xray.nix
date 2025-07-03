@@ -52,8 +52,8 @@ in
 
     package = mkOption {
       type = types.package;
-      default = pkgs.badvpn;
-      defaultText = literalExpression "pkgs.badvpn";
+      default = pkgs.tun2socks;
+      defaultText = literalExpression "pkgs.tun2socks";
       description = "Package providing tun2socks";
     };
 
@@ -102,10 +102,8 @@ in
         ExecStartPre = startupScript;
         ExecStart = ''
           ${cfg.package}/bin/tun2socks \
-            --tundev ${cfg.interface} \
-            --netif-ipaddr 10.0.0.2 \
-            --netif-netmask 255.255.255.0 \
-            --socks-server-addr ${cfg.proxy} \
+            -device ${cfg.interface} \
+            -proxy ${cfg.proxy} \
             ${toString cfg.extraArgs}
         '';
         ExecStopPost = shutdownScript;

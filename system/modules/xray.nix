@@ -18,6 +18,8 @@ in
       "plugins.jetbrains.com"
       "account.jetbrains.com"
       "data.services.jetbrains.com"
+      "spotify.com"
+      "open.spotify.com"
     ];
   };
   

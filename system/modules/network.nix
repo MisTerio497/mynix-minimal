@@ -6,9 +6,7 @@
     nameservers = [
       "1.1.1.1"
       "8.8.8.8"
-      "127.0.0.1" 
     ];
-    # dhcpcd.extraConfig = "nohook resolv.conf";
     networkmanager = {
       enable = false;
       wifi.powersave = false;

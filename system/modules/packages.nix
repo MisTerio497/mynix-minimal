@@ -9,8 +9,13 @@ in{
   fonts.packages = with pkgs; [
     corefonts
   ];
+  programs.java = {
+    enable = true;
+  };
   environment.systemPackages = with pkgs; [
     pciutils
+    jdk8
+    jdk17
     winapps
     agenix
     package-version-server

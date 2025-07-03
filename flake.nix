@@ -26,10 +26,10 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    # illogical-impulse = {
-    #   url = "github:bigsaltyfishes/end-4-dots";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    illogical-impulse = {
+      url = "github:bigsaltyfishes/end-4-dots";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -56,18 +56,19 @@
           ./system/configuration.nix
           ./disko.nix
           disko.nixosModules.disko
-          stylix.nixosModules.stylix
+          #stylix.nixosModules.stylix
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             home-manager = {
               useGlobalPkgs = false;
               useUserPackages = true;
+              backupFileExtension = "bak";
               extraSpecialArgs = { inherit inputs; };
               users.ivan = {
                 imports = [
                   ./user/home.nix
-                  stylix.homeModules.stylix
+                  
                 ];
               };
             };

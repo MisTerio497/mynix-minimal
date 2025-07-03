@@ -13,7 +13,10 @@ in {
   };
   home.packages = with pkgs; [
     zen-browser
+    prismlauncher
     krita
+    _64gram
+    mpv
     usbutils
     pciutils
     system-config-printer
