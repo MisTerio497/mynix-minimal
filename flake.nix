@@ -26,7 +26,15 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    flake-programs-sqlite = {
+      url = "github:wamserma/flake-programs-sqlite";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    #nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     # illogical-impulse = {
     #   url = "github:bigsaltyfishes/end-4-dots";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -39,7 +47,9 @@
       home-manager,
       disko,
       stylix,
+      flake-programs-sqlite,
       agenix,
+      nixos-hardware,
       ...
     }@inputs:
     let
@@ -56,20 +66,20 @@
         modules = [
           ./system/configuration.nix
           ./disko.nix
-          disko.nixosModules.disko
-          #stylix.nixosModules.stylix
+          flake-programs-sqlite.nixosModules.programs-sqlite
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
+          #nixos-hardware.nixosModules.asus-fa507nv
           {
             home-manager = {
               useGlobalPkgs = false;
-              useUserPackages = true;
+              useUserPackages = false;
               backupFileExtension = "bak";
               extraSpecialArgs = { inherit inputs; };
               users.ivan = {
                 imports = [
                   ./user/home.nix
-                  
+                  stylix.homeModules.stylix
                 ];
               };
             };

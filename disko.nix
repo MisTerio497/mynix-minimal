@@ -1,6 +1,14 @@
 # sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount disko.nix
-{ lib, disks ? [ "/dev/nvme0n1" ], ... }:
 {
+  lib,
+  disks ? [ "/dev/nvme0n1" ],
+  inputs,
+  ...
+}:
+{
+  imports = [
+    inputs.disko.nixosModules.disko
+  ];
   disko.devices = {
     disk = {
       nvme = {
@@ -18,7 +26,7 @@
                 format = "vfat";
                 mountpoint = "/boot";
                 mountOptions = [
-                  "fmask=0077" 
+                  "fmask=0077"
                   "dmask=0077"
                 ];
               };

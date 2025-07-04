@@ -28,18 +28,18 @@
     modesetting.enable = true;
     forceFullCompositionPipeline = true;
     powerManagement = {
-      enable = false;
-      finegrained = false;
+      enable = true;
+      finegrained = true;
     };
     nvidiaSettings = true;
     prime = {
       offload = {
-        enable = false;
-        enableOffloadCmd = false;
+        enable = true;
+        enableOffloadCmd = true;
       };
-      sync.enable = true;
-      amdgpuBusId = "PCI:53:0:0"; # Converted from 35:00.0
-      nvidiaBusId = "PCI:1:0:0"; # Converted from 01:00.0
+      sync.enable = false;
+      amdgpuBusId = lib.mkForce "PCI:53:0:0"; # Converted from 35:00.0
+      nvidiaBusId = lib.mkForce "PCI:1:0:0"; # Converted from 01:00.0
     };
   };
 }

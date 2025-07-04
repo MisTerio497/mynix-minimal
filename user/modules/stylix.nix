@@ -4,7 +4,7 @@
     inputs.stylix.homeModules.stylix
   ];
   stylix = {
-    image = ./../walpapers/anime-tayn.jpg;
+    image = ./../wallpapers/anime-tayn.jpg;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
     polarity = "dark";
     targets = {
