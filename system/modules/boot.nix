@@ -1,16 +1,16 @@
 { pkgs, inputs, ... }:
 {
-  imports = [
-    inputs.nixos-boot.nixosModules.default
-  ];
-  nixos-boot = {
-    enable = false;
-    # theme = "evil-nixos";
-    # bgColor.red   = 0; # 0 - 255
-    # bgColor.green = 0; # 0 - 255
-    # bgColor.blue  = 0; # 0 - 255
-    #duration = 3;
-  };
+  # imports = [
+  #   inputs.nixos-boot.nixosModules.default
+  # ];
+  # nixos-boot = {
+  #   enable = false;
+  #   # theme = "evil-nixos";
+  #   # bgColor.red   = 0; # 0 - 255
+  #   # bgColor.green = 0; # 0 - 255
+  #   # bgColor.blue  = 0; # 0 - 255
+  #   #duration = 3;
+  # };
   boot = {
     loader = {
       systemd-boot = {
@@ -21,7 +21,7 @@
     };
     kernelPackages = pkgs.linuxPackages_zen;
     plymouth = {
-      enable = false;
+      enable = true;
       font = "${pkgs.jetbrains-mono}/share/fonts/truetype/JetBrainsMono-Regular.ttf";
       themePackages = [ pkgs.catppuccin-plymouth ];
       theme = "catppuccin-macchiato";
