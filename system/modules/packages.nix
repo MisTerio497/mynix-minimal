@@ -18,6 +18,7 @@ in
   programs.java = {
     enable = true;
   };
+  services.hardware.openrgb.enable = true;
   environment.systemPackages = with pkgs; [
     pciutils
     jdk8

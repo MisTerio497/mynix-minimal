@@ -4,7 +4,7 @@
 
   services.ollama = {
     enable = true;
-    loadModels = [ "llama3.2:3b" "qwen3:4b" ];
+    loadModels = [ "qwen:7b-chat" ];
     acceleration = "cuda";
   };
 
