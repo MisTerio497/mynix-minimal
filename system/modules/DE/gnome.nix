@@ -6,7 +6,9 @@
       enable = true;
       desktopManager.gnome = {
         enable = true;
-        excludePackages = with pkgs; [
+      };
+    };
+  environment.gnome.excludePackages = ( with pkgs; [
           gnome-tour       # Исключить GNOME Tour
           epiphany         # Исключить веб-браузер Epiphany
           gnome-connections # Исключить удалённые подключения
@@ -15,10 +17,7 @@
           gnome-weather   # Исключить погоду
           gnome-music     # Исключить музыку
           cheese          # Исключить Cheese (веб-камера)
-        ];
-      };
-    };
-  
+        ]);
   # Enable automatic login for the user.
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "ivan";

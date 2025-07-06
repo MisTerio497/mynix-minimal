@@ -47,9 +47,9 @@
       home-manager,
       disko,
       stylix,
+      nix-flatpak,
       flake-programs-sqlite,
       agenix,
-      nixos-hardware,
       ...
     }@inputs:
     let
@@ -66,10 +66,10 @@
         modules = [
           ./system/configuration.nix
           ./disko.nix
+          disko.nixosModules.disko
           flake-programs-sqlite.nixosModules.programs-sqlite
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
-          #nixos-hardware.nixosModules.asus-fa507nv
           {
             home-manager = {
               useGlobalPkgs = false;
@@ -80,6 +80,7 @@
                 imports = [
                   ./user/home.nix
                   stylix.homeModules.stylix
+                  nix-flatpak.homeManagerModules.nix-flatpak
                 ];
               };
             };

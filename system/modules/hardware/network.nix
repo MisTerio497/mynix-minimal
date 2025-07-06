@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 {
   services.adguardhome.enable = true;
-  services.zerotierone.enable = true;
+  #services.zerotierone.enable = true;
   networking = {
     hostName = "nixos";
     nameservers = [

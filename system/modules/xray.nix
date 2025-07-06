@@ -23,7 +23,7 @@ in
   };
   
 
-  age.identityPaths = [ "/home/ivan/.config/age/keys.txt" ];
+  age.identityPaths = [ "/home/ivan/.age/keys.txt" ];
   age.secrets.xray = {
     file = ./secrets/xray-secrets.age;
     owner = "ivan";
