@@ -1,28 +1,59 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 {
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
+  # Enable the GNOME Desktop Environment
   services.xserver = {
+    enable = true;
+    displayManager.gdm = {
       enable = true;
-      desktopManager.gnome = {
-        enable = true;
-      };
+      # Recommended settings for better Wayland support
+      wayland = true;
     };
-  environment.gnome.excludePackages = ( with pkgs; [
-          gnome-tour       # Исключить GNOME Tour
-          epiphany         # Исключить веб-браузер Epiphany
-          gnome-connections # Исключить удалённые подключения
-          gnome-contacts   # Исключить контакты
-          gnome-maps      # Исключить карты
-          gnome-weather   # Исключить погоду
-          gnome-music     # Исключить музыку
-          cheese          # Исключить Cheese (веб-камера)
-        ]);
-  # Enable automatic login for the user.
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "ivan";
+    desktopManager.gnome.enable = true;
+  };
 
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+  environment = {
+    # Исправлено: systemPackages вместо systemPackeges
+    systemPackages = with pkgs; [
+      gnome-tweaks
+    ];
+
+    # Более правильное объявление исключаемых пакетов
+    gnome.excludePackages =
+      (with pkgs; [
+        gnome-tour
+        epiphany
+        gnome-connections
+        gnome-contacts
+        gnome-maps
+        gnome-weather
+        gnome-music
+        cheese
+      ])
+      ++ (with pkgs; [
+        # Дополнительные пакеты для исключения
+        yelp # Документация
+        geary # Почтовый клиент
+        totem # Видеоплеер
+        tali # Игра
+        iagno # Игра
+        hitori # Игра
+        atomix # Игра
+      ]);
+  };
+
+  # Enable automatic login
+  services.displayManager = {
+    autoLogin = {
+      enable = true;
+      user = "ivan";
+    };
+  };
+
+  # Workaround for GNOME autologin
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
+
+  # Дополнительные рекомендуемые настройки для GNOME
+  programs.dconf.enable = true;
+  services.gnome.gnome-keyring.enable = true;
 }

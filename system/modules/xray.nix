@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 let
-  # Получаем путь к секрету через конфиг NixOS
-  raw = builtins.readFile config.age.secrets.xray.path;
-  secrets = import (builtins.toFile "decoded.nix" raw);
+  raw = config.age.secrets.xray.path;
 in
 {
   imports = [ ./tun2xray.nix ];
@@ -21,62 +19,60 @@ in
       "discord.com"
     ];
   };
-  
 
-  age.identityPaths = [ "/home/ivan/.age/keys.txt" ];
-  age.secrets.xray = {
-    file = ./secrets/xray-secrets.age;
-    owner = "ivan";
+  age = {
+    identityPaths = [ "/home/ivan/.age/keys.txt" ];
+    secrets.xray = {
+      file = ./secrets/xray-secrets.age;
+      owner = "ivan";
+      group = "users";
+      mode = "0400";
+    };
   };
 
   services.xray = {
     enable = true;
-    settings = {
+    settings = let
+      # Читаем секреты только во время выполнения
+      secrets = builtins.fromJSON (builtins.readFile raw);
+    in {
       log.level = "warning";
 
-      inbounds = [
-        {
-          listen = "127.0.0.1";
-          port = 10808;
-          protocol = "socks";
-          settings = {
-            auth = "noauth";
-            udp = true;
-          };
-        }
-      ];
+      inbounds = [{
+        listen = "127.0.0.1";
+        port = 10808;
+        protocol = "socks";
+        settings = {
+          auth = "noauth";
+          udp = true;
+        };
+      }];
 
-      outbounds = [
-        {
-          protocol = "vless";
-          settings = {
-            vnext = [
-              {
-                address = secrets.address;
-                port = 443;
-                users = [
-                  {
-                    id = secrets.id;
-                    flow = "xtls-rprx-vision";
-                    encryption = "none";
-                  }
-                ];
-              }
-            ];
+      outbounds = [{
+        protocol = "vless";
+        settings = {
+          vnext = [{
+            address = secrets.address;
+            port = 443;
+            users = [{
+              id = secrets.id;
+              flow = "xtls-rprx-vision";
+              encryption = "none";
+            }];
+          }];
+        };
+        streamSettings = {
+          network = "tcp";
+          security = "reality";
+          realitySettings = {
+            serverName = "cloudflare.com";
+            fingerprint = "chrome";
+            publicKey = secrets.publicKey;
+            shortId = secrets.shortId;
+            spiderX = "/";
           };
-          streamSettings = {
-            network = "tcp";
-            security = "reality";
-            realitySettings = {
-              serverName = "cloudflare.com";
-              fingerprint = "chrome";
-              publicKey = secrets.publicKey;
-              shortId = secrets.shortId;
-              spiderX = "/";
-            };
-          };
-        }
-      ];
+        };
+      }];
     };
   };
 }
