@@ -9,6 +9,6 @@
     ./steam.nix
     ./zram.nix
     ./llm.nix
-    #./xray.nix
+    ./xray.nix
   ];
 }
