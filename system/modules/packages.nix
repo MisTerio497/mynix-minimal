@@ -21,6 +21,7 @@ in
   services.hardware.openrgb.enable = true;
   environment.systemPackages = with pkgs; [
     pciutils
+    home-manager
     jdk8
     jdk17
     winapps

@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ lib, pkgs, inputs, ... }:
 let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
 in {
@@ -13,9 +13,9 @@ in {
 
   programs.spicetify = {
     enable = true;
-    theme = spicePkgs.themes.catppuccin;
+    theme = lib.mkForce spicePkgs.themes.catppuccin;
     enabledExtensions = with spicePkgs.extensions; [ adblock ];
-    colorScheme = "mocha";  # опционально
+    colorScheme = lib.mkForce "mocha";
   };
 
   home.packages = with pkgs; [
@@ -28,6 +28,9 @@ in {
     usbutils
     pciutils
     system-config-printer
-    kitty
   ];
+  programs.gnome-shell = {
+    enable = true;
+    extensions = [ ];
+  };
 }
