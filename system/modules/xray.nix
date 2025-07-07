@@ -11,24 +11,25 @@ in
     proxy = "socks5://127.0.0.1:10808";
     whitelist = [
       # JetBrains domains
+      "www.jetbrains.com"
       "download.jetbrains.com"
       "plugins.jetbrains.com"
       "account.jetbrains.com"
 
-      # Discord domains
-      "discord.com"
-      "*.discord.com"
-      "*.discord.gg"
-      "*.discordapp.com"
-      "*.discordapp.net"
+      # # Discord domains
+      # "discord.com"
+      # "*.discord.com"
+      # "*.discord.gg"
+      # "*.discordapp.com"
+      # "*.discordapp.net"
 
-      # Discord media and WebSocket
-      "cdn.discordapp.com"
-      "media.discordapp.net"
+      # # Discord media and WebSocket
+      # "cdn.discordapp.com"
+      # "media.discordapp.net"
 
-      # Discord API and gateway
-      "gateway.discord.gg"
-      "discord-api.com"
+      # # Discord API and gateway
+      # "gateway.discord.gg"
+      # "discord-api.com"
     ];
   };
 

@@ -44,6 +44,8 @@
     hashedPassword = "$6$GBmyYg5sZUOA2AlO$MfIpp6XDGgLsDZEBETIrxcSpgBPRfNtXgGJ3GZ3DBYQ4tspWu/DvGCQQ8H1r4YD0JxSaNbM20mlwXjbhRXv0b.";
     extraGroups = [
       "wheel"
+      "audio"
+      "pipewire"
     ];
     shell = pkgs.fish;
     createHome = true;

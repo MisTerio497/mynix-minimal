@@ -7,7 +7,10 @@
     nameservers = [
       "1.1.1.1"
     ];
-    
+    networkmanager = {
+      enable = false;
+      wifi.powersave = false;
+    };
     wireless = {
       enable = true;
       networks = {

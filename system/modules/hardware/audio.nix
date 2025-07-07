@@ -12,9 +12,4 @@
     jack.enable = true;
     wireplumber.enable = true;
   };
-
-  environment.systemPackages = with pkgs; [
-    pamixer
-    pavucontrol
-  ];
 }
