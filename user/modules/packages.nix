@@ -17,10 +17,10 @@ in {
     enabledExtensions = with spicePkgs.extensions; [ adblock ];
     colorScheme = lib.mkForce "mocha";
   };
+  programs.vesktop.enable = true;
 
   home.packages = with pkgs; [
     inputs.zen-browser.packages.${pkgs.system}.default
-    vesktop
     prismlauncher
     krita
     _64gram
@@ -31,6 +31,6 @@ in {
   ];
   programs.gnome-shell = {
     enable = true;
-    extensions = [ ];
+    extensions = with pkgs; [  ];
   };
 }
