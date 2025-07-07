@@ -1,7 +1,8 @@
 { pkgs, lib, ... }:
 {
-  services.adguardhome.enable = true;
-  #services.zerotierone.enable = true;
+  imports = [ ./network-connections.nix ];
+
+  services.zerotierone.enable = true;
   networking = {
     hostName = "nixos";
     nameservers = [
@@ -9,11 +10,28 @@
       "8.8.8.8"
     ];
     networkmanager = {
-      enable = false;
+      enable = true;
       wifi.powersave = false;
     };
-    wireless = {
+    network-connections = {
       enable = true;
+      wifi = [
+        {
+          name = "Home-WiFi-5G";
+          ssid = "RT-5GPON-4957";
+          password = "4FmW9pVw";
+          priority = 100;
+        }
+        {
+          name = "Home-WiFi";
+          ssid = "RT-GPON-4957";
+          password = "4FmW9pVw";
+          priority = 80;
+        }
+      ];
+    };
+    wireless = {
+      enable = false;
       networks = {
         "RT-5GPON-4957" = {
           psk = "4FmW9pVw";

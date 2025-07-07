@@ -66,18 +66,11 @@
       inherit system;
       specialArgs = { inherit inputs; };
       modules = [
-        ./system/configuration.nix
-        ./disko.nix
         disko.nixosModules.disko
         flake-programs-sqlite.nixosModules.programs-sqlite
         agenix.nixosModules.default
-        home-manager.nixosModules.home-manager
-        # {
-        #   home-manager = {
-        #     extraSpecialArgs = { inherit inputs; };
-        #     users.ivan = import ./user/home.nix;
-        #   };
-        # }
+        ./system/configuration.nix
+        ./disko.nix
       ];
     };
 
