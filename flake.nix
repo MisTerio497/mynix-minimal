@@ -3,11 +3,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     # System modules
-    nixos-boot.url = "github:Melkor333/nixos-boot";
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,6 +14,10 @@
     # User packages and config
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
@@ -38,7 +37,6 @@
       url = "github:winapps-org/winapps";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     # Utilities
     flake-programs-sqlite = {
       url = "github:wamserma/flake-programs-sqlite";
@@ -46,42 +44,43 @@
     };
   };
 
-  outputs = { 
-    nixpkgs,
-    home-manager,
-    disko,
-    stylix,
-    nix-flatpak,
-    flake-programs-sqlite,
-    agenix,
-    ...
-  }@inputs:
-  let
-    system = "x86_64-linux";
-    lib = nixpkgs.lib;
-    pkgs = nixpkgs.legacyPackages.${system};
-  in
-  {
-    nixosConfigurations.nixos = lib.nixosSystem {
-      inherit system;
-      specialArgs = { inherit inputs; };
-      modules = [
-        disko.nixosModules.disko
-        flake-programs-sqlite.nixosModules.programs-sqlite
-        agenix.nixosModules.default
-        ./system/configuration.nix
-        ./disko.nix
-      ];
-    };
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      disko,
+      stylix,
+      nix-flatpak,
+      flake-programs-sqlite,
+      agenix,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
+      lib = nixpkgs.lib;
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
+    {
+      nixosConfigurations.nixos = lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          disko.nixosModules.disko
+          flake-programs-sqlite.nixosModules.programs-sqlite
+          agenix.nixosModules.default
+          ./system/configuration.nix
+          ./disko.nix
+        ];
+      };
 
-    homeConfigurations."ivan" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      extraSpecialArgs = { inherit inputs; };
-      modules = [
-        stylix.homeModules.stylix
-        ./user/home.nix
-        nix-flatpak.homeManagerModules.nix-flatpak
-      ];
+      homeConfigurations."ivan" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = { inherit inputs; };
+        modules = [
+          stylix.homeModules.stylix
+          ./user/home.nix
+          nix-flatpak.homeManagerModules.nix-flatpak
+        ];
+      };
     };
-  };
 }

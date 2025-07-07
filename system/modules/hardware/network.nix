@@ -39,14 +39,12 @@
     #   ];
     # };
   };
-  programs.proxychains = {
-    enable = true;
-    proxies = {
-      xray = {
-        type = "socks5";
-        host = "127.0.0.1";
-        port = 10808;
-      };
-    };
+  services.zapret = {
+    enable = false;
+    params = [
+      "--dpi-desync=fake,disorder2"
+      "--dpi-desync-ttl=1"
+      "--dpi-desync-autottl=2"
+    ];
   };
 }

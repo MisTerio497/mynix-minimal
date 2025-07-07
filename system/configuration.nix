@@ -5,7 +5,7 @@
     ./modules
     ./hardware-configuration.nix
   ];
-  
+
   system.autoUpgrade = {
     enable = true;
     flake = "/home/ivan/mynix-minimal";
@@ -21,7 +21,7 @@
     package = pkgs.openssh; # Явное указание пакета
     startAgent = true; # Автозапуск ssh-agent
   };
-  
+
   services.power-profiles-daemon.enable = true;
   programs.dconf.enable = true;
   # Enable the X11 windowing system.

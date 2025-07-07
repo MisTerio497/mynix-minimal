@@ -1,37 +1,33 @@
-{ pkgs, inputs, ... }:
 {
-  # imports = [
-  #   inputs.nixos-boot.nixosModules.default
-  # ];
-  # nixos-boot = {
-  #   enable = false;
-  #   # theme = "evil-nixos";
-  #   # bgColor.red   = 0; # 0 - 255
-  #   # bgColor.green = 0; # 0 - 255
-  #   # bgColor.blue  = 0; # 0 - 255
-  #   #duration = 3;
-  # };
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+{
   boot = {
     loader = {
       systemd-boot = {
-        enable = true;
+        enable = lib.mkForce true;
         consoleMode = "max";
       };
-      efi.canTouchEfiVariables = true;
+      efi = {
+        canTouchEfiVariables = true;
+        #efiSysMountPoint = "/boot/efi";
+      };
     };
     kernelPackages = pkgs.linuxPackages_zen;
     plymouth = {
       enable = true;
-      font = "${pkgs.jetbrains-mono}/share/fonts/truetype/JetBrainsMono-Regular.ttf";
       themePackages = [ pkgs.catppuccin-plymouth ];
       theme = "catppuccin-macchiato";
     };
     kernelParams = [
       "quiet"
       "splash"
-      "boot.shell_on_fail"
-      "udev.log_priority=3"
-      "rd.systemd.show_status=auto"
+      # "boot.shell_on_fail"
+      # "udev.log_priority=3"
+      # "rd.systemd.show_status=auto"
     ];
     supportedFilesystems = [ "ntfs" ];
     initrd = {

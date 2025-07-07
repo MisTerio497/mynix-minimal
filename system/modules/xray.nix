@@ -15,21 +15,6 @@ in
       "download.jetbrains.com"
       "plugins.jetbrains.com"
       "account.jetbrains.com"
-
-      # # Discord domains
-      # "discord.com"
-      # "*.discord.com"
-      # "*.discord.gg"
-      # "*.discordapp.com"
-      # "*.discordapp.net"
-
-      # # Discord media and WebSocket
-      # "cdn.discordapp.com"
-      # "media.discordapp.net"
-
-      # # Discord API and gateway
-      # "gateway.discord.gg"
-      # "discord-api.com"
     ];
   };
 
