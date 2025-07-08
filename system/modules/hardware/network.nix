@@ -8,11 +8,11 @@
       "1.1.1.1"
     ];
     networkmanager = {
-      enable = false;
+      enable = true;
       wifi.powersave = false;
     };
     wireless = {
-      enable = true;
+      enable = false;
       networks = {
         "RT-5GPON-4957" = {
           psk = "4FmW9pVw";

@@ -5,6 +5,9 @@
   ...
 }:
 {
+  imports = [
+    ./secureboot.nix
+  ];
   boot = {
     loader = {
       systemd-boot = {
@@ -16,7 +19,7 @@
         #efiSysMountPoint = "/boot/efi";
       };
     };
-    
+
     kernelPackages = pkgs.linuxPackages_zen;
     plymouth = {
       enable = true;

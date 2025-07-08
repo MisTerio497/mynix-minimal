@@ -77,9 +77,9 @@
         inherit pkgs;
         extraSpecialArgs = { inherit inputs; };
         modules = [
-          stylix.homeModules.stylix
+          
           ./user/home.nix
-          nix-flatpak.homeManagerModules.nix-flatpak
+          
         ];
       };
     };

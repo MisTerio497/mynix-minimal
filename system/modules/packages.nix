@@ -10,7 +10,9 @@ let
   agenix = inputs.agenix.packages."${pkgs.system}".default;
 in
 {
-
+  imports = [
+    inputs.nix-flatpak.nixosModules.nix-flatpak
+  ];
   nixpkgs.config.allowUnfree = true;
   fonts.packages = with pkgs; [
     corefonts
@@ -23,7 +25,6 @@ in
     pciutils
     home-manager
     efibootmgr
-    ventoy-full
     jdk8
     jdk17
     winapps
@@ -35,12 +36,20 @@ in
     curl
     wget
   ];
-  services.flatpak.enable = true;
-  systemd.services.flatpak-repo = {
-    wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.flatpak ];
-    script = ''
-      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    '';
+  services.flatpak = {
+    enable = true;
+    remotes = [
+      {
+        name = "flathub";
+        location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+      }
+    ];
+    packages = [
+      
+    ];
+    update.auto = {
+      enable = true;
+      onCalendar = "weekly"; # Default value
+    };
   };
 }
