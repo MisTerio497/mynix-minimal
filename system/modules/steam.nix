@@ -23,13 +23,12 @@
   environment.systemPackages = with pkgs; [
     mangohud
     protonup
-    lutris
     (pkgs.bottles.override { removeWarningPopup = true; })
     heroic
     steam-run
   ];
   
-  # environment.sessionVariables = {
-  #   STEAM_EXTRA_COMPAT_TOOLS_PATH = "/home/ivan/.steam/root/compatibilitytools.d";
-  # };
+  environment.sessionVariables = {
+    STEAM_EXTRA_COMPAT_TOOLS_PATH = "/home/ivan/.steam/root/compatibilitytools.d";
+  };
 }

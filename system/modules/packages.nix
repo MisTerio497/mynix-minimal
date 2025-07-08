@@ -22,6 +22,8 @@ in
   environment.systemPackages = with pkgs; [
     pciutils
     home-manager
+    efibootmgr
+    ventoy-full
     jdk8
     jdk17
     winapps

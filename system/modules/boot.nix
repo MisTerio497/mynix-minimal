@@ -8,7 +8,7 @@
   boot = {
     loader = {
       systemd-boot = {
-        enable = lib.mkForce true;
+        enable = true;
         consoleMode = "max";
       };
       efi = {
@@ -16,6 +16,7 @@
         #efiSysMountPoint = "/boot/efi";
       };
     };
+    
     kernelPackages = pkgs.linuxPackages_zen;
     plymouth = {
       enable = true;
