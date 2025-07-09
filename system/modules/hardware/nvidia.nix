@@ -7,8 +7,8 @@
 
 {
   services.xserver.videoDrivers = [
-    "nvidia"
     "amdgpu"
+    "nvidia"
   ];
   #boot.blacklistedKernelModules = [ "nouveau" ];
   hardware = {
@@ -23,34 +23,21 @@
     };
   };
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
-    open = false;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    open = true;
     modesetting.enable = true;
-    nvidiaSettings = true;
+    # nvidiaSettings = true;
     # powerManagement = {
     #   enable = true;
     #   finegrained = true;
     # };
-    prime = {
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
-      amdgpuBusId = lib.mkForce "PCI:53:0:0"; # Converted from 35:00.0
-      nvidiaBusId = lib.mkForce "PCI:1:0:0"; # Converted from 01:00.0
-    };
   };
-  specialisation = {
-    nvidia-sync.configuration = {
-      system.nixos.tags = [ "nvidia-sync" ];
-      hardware.nvidia = {
-        powerManagement.finegrained = lib.mkForce false;
-
-        prime.offload.enable = lib.mkForce false;
-        prime.offload.enableOffloadCmd = lib.mkForce false;
-
-        prime.sync.enable = lib.mkForce true;
-      };
+  hardware.nvidia.prime = {
+    offload = {
+      enable = true;
+      enableOffloadCmd = true;
     };
+    amdgpuBusId = "PCI:35:0:0";
+    nvidiaBusId = "PCI:1:0:0";
   };
 }
