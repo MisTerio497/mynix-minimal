@@ -6,7 +6,9 @@
     hostName = "nixos";
     nameservers = [
       "1.1.1.1"
+      "1.0.0.1"
     ];
+    nftables.enable = true;
     networkmanager = {
       enable = true;
       wifi.powersave = false;
@@ -30,19 +32,20 @@
       };
     };
     firewall = {
-      enable = false;
+      enable = true;
       allowedTCPPorts = [
         22
         80
         443
       ];
-      allowedUDPPortRanges = [
-        {
-          from = 3074;
-          to = 3076;
-        }
-      ];
-      allowedUDPPorts = [ 1900 ]; # Необходимо для UPnP
+      allowedUDPPorts = [ 1900 ];
     };
   };
+  services.miniupnpd = {
+      enable = true;
+      upnp = true;
+      externalInterface = "wlp3s0";
+      internalIPs = [ "wlp3s0" ];
+      natpmp = true;
+    };
 }
