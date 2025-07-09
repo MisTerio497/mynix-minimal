@@ -49,8 +49,6 @@
       nixpkgs,
       home-manager,
       disko,
-      stylix,
-      nix-flatpak,
       flake-programs-sqlite,
       agenix,
       ...

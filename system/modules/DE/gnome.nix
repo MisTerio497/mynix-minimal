@@ -5,7 +5,6 @@
     enable = true;
     displayManager.gdm = {
       enable = true;
-      # Recommended settings for better Wayland support
       wayland = true;
     };
     desktopManager.gnome.enable = true;

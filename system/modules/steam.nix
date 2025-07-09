@@ -6,7 +6,6 @@
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
     protontricks.enable = true;
-    extraCompatPackages = with pkgs; [ proton-ge-bin ];
   };
 
   programs.gamescope = {
@@ -22,7 +21,6 @@
   environment.systemPackages = with pkgs; [
     mangohud
     protonup
-    (pkgs.bottles.override { removeWarningPopup = true; })
     heroic
     steam-run
   ];

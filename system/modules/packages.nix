@@ -20,6 +20,7 @@ in
   programs.java = {
     enable = true;
   };
+  programs.amnezia-vpn.enable = true;
   services.hardware.openrgb.enable = true;
   environment.systemPackages = with pkgs; [
     pciutils

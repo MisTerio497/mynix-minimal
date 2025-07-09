@@ -29,22 +29,20 @@
         };
       };
     };
-    # hosts = {
-    #   "0.0.0.0" = [
-    #     "pubads.g.doubleclick.net"
-    #     "securepubads.g.doubleclick.net"
-    #     "gads.pubmatic.com"
-    #     "ads.pubmatic.com"
-    #     "spclient.wg.spotify.com"
-    #   ];
-    # };
-  };
-  services.zapret = {
-    enable = false;
-    params = [
-      "--dpi-desync=fake,disorder2"
-      "--dpi-desync-ttl=1"
-      "--dpi-desync-autottl=2"
-    ];
+    firewall = {
+      enable = false;
+      allowedTCPPorts = [
+        22
+        80
+        443
+      ];
+      allowedUDPPortRanges = [
+        {
+          from = 3074;
+          to = 3076;
+        }
+      ];
+      allowedUDPPorts = [ 1900 ]; # Необходимо для UPnP
+    };
   };
 }
