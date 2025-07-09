@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ./secureboot.nix
+    #./secureboot.nix
   ];
   boot = {
     loader = {

@@ -24,13 +24,13 @@
   };
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
-    open = true;
+    open = false;
     modesetting.enable = true;
-    # nvidiaSettings = true;
-    # powerManagement = {
-    #   enable = true;
-    #   finegrained = true;
-    # };
+    nvidiaSettings = true;
+    powerManagement = {
+      enable = true;
+      finegrained = true;
+    };
   };
   hardware.nvidia.prime = {
     offload = {
@@ -39,5 +39,12 @@
     };
     amdgpuBusId = "PCI:35:0:0";
     nvidiaBusId = "PCI:1:0:0";
+  };
+  environment.variables = {
+    __NV_PRIME_RENDER_OFFLOAD = "0"; # По умолчанию AMD
+    __GLX_VENDOR_LIBRARY_NAME = "mesa"; # Mesa для AMD
+  };
+  environment.sessionVariables = {
+    WLR_NO_HARDWARE_CURSORS = "1"; # Фикс курсора в Wayland
   };
 }
