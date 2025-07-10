@@ -1,7 +1,13 @@
-{ lib, pkgs, inputs, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
-in {
+in
+{
   imports = [
     inputs.spicetify-nix.homeManagerModules.default
   ];
@@ -29,7 +35,4 @@ in {
     pciutils
     system-config-printer
   ];
-  programs.gnome-shell = {
-    enable = true;
-  };
 }

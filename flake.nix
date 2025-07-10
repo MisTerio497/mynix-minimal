@@ -51,6 +51,7 @@
       disko,
       flake-programs-sqlite,
       agenix,
+      stylix,
       ...
     }@inputs:
     let
@@ -75,7 +76,7 @@
         inherit pkgs;
         extraSpecialArgs = { inherit inputs; };
         modules = [
-          
+          stylix.homeModules.stylix
           ./user/home.nix
           
         ];

@@ -1,11 +1,7 @@
 { pkgs, inputs, ... }:
 {
-  imports = [
-    inputs.stylix.homeModules.stylix
-  ];
   stylix = {
     enable = true;
-    autoEnable = false;
     image = ./../wallpapers/anime-tayn.jpg;
     #base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
     polarity = "dark";

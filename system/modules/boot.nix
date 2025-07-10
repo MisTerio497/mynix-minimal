@@ -20,7 +20,7 @@
       };
     };
 
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_zen;
     plymouth = {
       enable = true;
       themePackages = [ pkgs.catppuccin-plymouth ];
