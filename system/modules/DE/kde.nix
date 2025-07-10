@@ -13,7 +13,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    kdePackages.discover # Optional: Install if you use Flatpak or fwupd firmware update sevice
     kdePackages.kcalc # Calculator
     kdePackages.ksystemlog # KDE SystemLog Application
     kdePackages.sddm-kcm # Configuration module for SDDM
