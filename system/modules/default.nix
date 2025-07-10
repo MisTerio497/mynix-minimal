@@ -8,7 +8,7 @@
     ./nix-settings.nix
     ./steam.nix
     ./zram.nix
-    #./llm.nix
+    ./WM
     ./xray.nix
   ];
 }

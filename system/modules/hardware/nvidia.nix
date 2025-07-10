@@ -22,14 +22,13 @@
   };
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
-    open = false;
+    open = true;
     modesetting.enable = true;
     forceFullCompositionPipeline = true;
     powerManagement = {
       enable = true;
       finegrained = true;
     };
-    nvidiaSettings = true;
     prime = {
       offload = {
         enable = lib.mkForce true;
@@ -41,7 +40,7 @@
     };
   };
   environment.variables = {
-    __NV_PRIME_RENDER_OFFLOAD = "0";  # По умолчанию AMD
+    __NV_PRIME_RENDER_OFFLOAD = "0";
     __GLX_VENDOR_LIBRARY_NAME = "mesa";
   };
 }

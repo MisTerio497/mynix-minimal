@@ -6,5 +6,6 @@
     ./flatpak.nix
     ./stylix.nix
     ./shell.nix
+    ./../wm/hypr.nix
   ];
 }

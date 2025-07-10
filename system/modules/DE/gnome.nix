@@ -24,6 +24,7 @@
         gnome-connections
         gnome-contacts
         gnome-maps
+        gnome-software
         gnome-weather
         gnome-music
         cheese
@@ -43,7 +44,7 @@
   # Enable automatic login
   services.displayManager = {
     autoLogin = {
-      enable = true;
+      enable = false;
       user = "ivan";
     };
   };
@@ -54,5 +55,4 @@
 
   # Дополнительные рекомендуемые настройки для GNOME
   programs.dconf.enable = true;
-  services.gnome.gnome-keyring.enable = true;
 }

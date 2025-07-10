@@ -20,7 +20,7 @@
       };
     };
 
-    kernelPackages = pkgs.linuxPackages_zen;
+    kernelPackages = pkgs.linuxPackages_latest;
     plymouth = {
       enable = true;
       themePackages = [ pkgs.catppuccin-plymouth ];
@@ -33,7 +33,7 @@
       "udev.log_priority=3"
       "rd.systemd.show_status=auto"
     ];
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = [ "ntfs" "ext4" "exfat" "vfat"];
     initrd = {
       enable = true;
       verbose = false;

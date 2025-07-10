@@ -24,6 +24,7 @@ in
   services.hardware.openrgb.enable = true;
   environment.systemPackages = with pkgs; [
     pciutils
+    mesa-demos
     home-manager
     efibootmgr
     jdk8

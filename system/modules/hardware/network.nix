@@ -42,10 +42,11 @@
     };
   };
   services.miniupnpd = {
-      enable = true;
-      upnp = true;
-      externalInterface = "wlp3s0";
-      internalIPs = [ "wlp3s0" ];
-      natpmp = true;
-    };
+    enable = true;
+    upnp = true;
+    externalInterface = "wlp3s0";
+    internalIPs = [ "wlp3s0" ];
+    natpmp = true;
+  };
+  services.avahi.enable = true;
 }
