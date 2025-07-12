@@ -46,6 +46,14 @@
       "pool" = {
         type = "lvm_vg";
         lvs = {
+          games = {
+            size = "200G";
+            content = {
+              type = "filesystem";
+              format = "ext4";
+              mountpoint = "/home/ivan/Games";
+            };
+          };
           root = {
             size = "100%FREE";
             content = {

@@ -1,15 +1,16 @@
 { pkgs, inputs, ... }:
 {
   stylix = {
-    enable = true;
+    enable = false;
+    autoEnable = false;
     image = ./../wallpapers/anime-tayn.jpg;
     #base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
     polarity = "dark";
-    # targets = {
-    #   gtk.enable = true;
-    #   qt.enable = true;
-    #   gnome.enable = false;
-    # };
+    targets = {
+      gtk.enable = false;
+      qt.enable = true;
+      kde.enable = true;
+    };
     fonts = {
       serif = {
         package = pkgs.dejavu_fonts;

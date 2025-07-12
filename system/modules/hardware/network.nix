@@ -33,20 +33,14 @@
     };
     firewall = {
       enable = true;
-      allowedTCPPorts = [
-        22
-        80
-        443
+      # Ghost Recon Winlands
+      allowedUDPPorts = [ 9103 ]; # Постоянный порт
+      allowedUDPPortRanges = [
+        {
+          from = 40000;
+          to = 60000;
+        }
       ];
-      allowedUDPPorts = [ 1900 ];
     };
   };
-  services.miniupnpd = {
-    enable = true;
-    upnp = true;
-    externalInterface = "wlp3s0";
-    internalIPs = [ "wlp3s0" ];
-    natpmp = true;
-  };
-  services.avahi.enable = true;
 }
