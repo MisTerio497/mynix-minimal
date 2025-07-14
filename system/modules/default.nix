@@ -3,6 +3,7 @@
     ./hardware
     ./DE
     ./boot.nix
+    ./doas.nix
     ./packages.nix
     ./intern.nix
     ./nix-settings.nix

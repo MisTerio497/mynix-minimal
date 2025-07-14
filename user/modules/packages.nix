@@ -24,10 +24,10 @@ in
     colorScheme = lib.mkForce "mocha";
   };
   programs.vesktop.enable = true;
-
   home.packages = with pkgs; [
     inputs.zen-browser.packages.${pkgs.system}.default
     prismlauncher
+    qbittorrent
     krita
     _64gram
     mpv

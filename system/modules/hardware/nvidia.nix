@@ -38,8 +38,4 @@
       nvidiaBusId = "PCI:1:0:0"; # Converted from 01:00.0
     };
   };
-  environment.variables = {
-    __NV_PRIME_RENDER_OFFLOAD = "0"; # По умолчанию AMD
-    __GLX_VENDOR_LIBRARY_NAME = "mesa";
-  };
 }
