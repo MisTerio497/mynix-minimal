@@ -6,6 +6,8 @@
     ./flatpak.nix
     ./stylix.nix
     ./shell.nix
+    ./vesktop.nix
+    ./spicetify.nix
     #./../wm/hypr.nix
   ];
 }
