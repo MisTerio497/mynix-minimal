@@ -25,6 +25,7 @@ in
   environment.systemPackages = with pkgs; [
     pciutils
     mesa-demos
+    switcheroo-control
     home-manager
     efibootmgr
     jdk8

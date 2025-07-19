@@ -29,6 +29,8 @@ in
     prismlauncher
     qbittorrent
     krita
+    blender
+    jetbrains.idea-community-bin
     _64gram
     mpv
     usbutils

@@ -10,11 +10,11 @@
     ];
     nftables.enable = true;
     networkmanager = {
-      enable = true;
+      enable = false;
       wifi.powersave = false;
     };
     wireless = {
-      enable = false;
+      enable = true;
       networks = {
         "RT-5GPON-4957" = {
           psk = "4FmW9pVw";
@@ -32,15 +32,15 @@
       };
     };
     firewall = {
-      enable = true;
+      enable = false;
       # Ghost Recon Winlands
-      allowedUDPPorts = [ 9103 ]; # Постоянный порт
-      allowedUDPPortRanges = [
-        {
-          from = 40000;
-          to = 60000;
-        }
-      ];
+      # allowedUDPPorts = [ 9103 ]; # Постоянный порт
+      # allowedUDPPortRanges = [
+      #   {
+      #     from = 33000;
+      #     to = 60000;
+      #   }
+      # ];
     };
   };
 }
