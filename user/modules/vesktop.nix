@@ -1,7 +1,6 @@
-{ pkgs, ...}:
 {
   programs.vesktop.enable = true;
-  desktopEntries = {
+  xdg.desktopEntries = {
     vesktop = {
       name = "Vencord Desktop";
       exec = "vesktop --disable-gpu-sandbox --proxy-server=socks5://127.0.0.1:10808";
