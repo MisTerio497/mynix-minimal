@@ -14,6 +14,7 @@
     packages = [
       "ru.linux_gaming.PortProton"
       "io.github.vikdevelop.SaveDesktop"
+      "com.github.tchx84.Flatseal"
     ];
     update.auto = {
       enable = true;
