@@ -2,9 +2,10 @@
 {
   nixpkgs.config.allowUnfree = true;
   fonts.fontconfig.enable = true;
-
+  programs.mpv.enable = true;
   programs.chromium.enable = true;
-  
+  programs.direnv.enable = true;
+  programs.emacs.enable = true;
   home.packages = with pkgs; [
     inputs.zen-browser.packages.${pkgs.system}.default
     prismlauncher
@@ -13,9 +14,6 @@
     blender
     jetbrains.idea-community-bin
     _64gram
-    mpv
-    usbutils
-    pciutils
     system-config-printer
   ];
 }

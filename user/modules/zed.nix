@@ -1,4 +1,4 @@
-{ lib, pkgs, ...}:
+{ lib, pkgs, ... }:
 {
   programs.zed-editor = {
     enable = true;
@@ -52,23 +52,26 @@
       "scheme"
       "asciidoc"
       "http"
+      "marksman"
+      "markdown-oxide"
       # Themes
       "catppuccin"
       "tokyo-night"
       "one-dark-pro"
       "catppuccin-blur"
     ];
-    # "edit_predictions": {
-    #     "mode": "eager",
-    #     "copilot": {
-    #       "proxy": null,
-    #       "proxy_no_verify": null
-    #     },
-    #     "enabled_in_text_threads": false
-    #   },
+
     userSettings = {
-      features = {
-        inline_completion_provider = "none";
+      edit_predictions = {
+        mode = "subtle";
+        copilot = {
+          proxy = null;
+          proxy_no_verify = null;
+        };
+        enabled_in_text_threads = false;
+      };
+      telemetry = {
+        metrics = false;
       };
       lsp = {
         nil = {
@@ -106,7 +109,7 @@
       ui_font_size = lib.mkForce 25;
       buffer_font_size = lib.mkForce 25;
       theme = lib.mkForce {
-        mode =  "system";
+        mode = "system";
         light = "One Light";
         dark = "Gruvbox Dark Hard";
       };

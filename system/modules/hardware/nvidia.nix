@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 
@@ -24,7 +23,7 @@
     package = config.boot.kernelPackages.nvidiaPackages.production;
     open = false;
     modesetting.enable = true;
-    forceFullCompositionPipeline = true;
+    forceFullCompositionPipeline = false;
     # powerManagement = {
     #   enable = true;
     #   finegrained = false;
@@ -35,7 +34,6 @@
         enableOffloadCmd = true;
       };
       reverseSync.enable = true;
-      # Enable if using an external GPU
       allowExternalGpu = false;
       sync.enable = false;
       amdgpuBusId = "PCI:53:0:0"; # Converted from 35:00.0

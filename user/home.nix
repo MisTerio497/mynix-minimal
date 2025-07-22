@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ lib, ... }:
 
 let
   username = "ivan";
@@ -56,7 +56,6 @@ in
       ];
     in
     lib.hm.dag.entryAfter [ "writeBoundary" ] (
-      # ← Используйте lib.hm.dag вместо pkgs.lib.hm.dag
       builtins.concatStringsSep "\n" (map (dir: "mkdir -p ${dir}") dirs)
     );
 
