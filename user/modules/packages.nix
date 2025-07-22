@@ -6,6 +6,7 @@
   programs.chromium.enable = true;
   programs.direnv.enable = true;
   programs.emacs.enable = true;
+  programs.onlyoffice.enable = true;
   home.packages = with pkgs; [
     inputs.zen-browser.packages.${pkgs.system}.default
     prismlauncher

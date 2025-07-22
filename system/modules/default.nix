@@ -2,8 +2,9 @@
   imports = [
     ./hardware
     ./DE
+    ./virt.nix
     ./boot.nix
-    ./doas.nix
+    #./doas.nix
     ./packages.nix
     ./intern.nix
     ./nix-settings.nix
