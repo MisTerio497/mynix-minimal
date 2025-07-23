@@ -38,6 +38,10 @@
       url = "github:winapps-org/winapps";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lsfg-vk-flake = {
+      url = "github:pabloaul/lsfg-vk-flake/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # Utilities
     flake-programs-sqlite = {
       url = "github:wamserma/flake-programs-sqlite";
@@ -79,7 +83,7 @@
         modules = [
           stylix.homeModules.stylix
           ./user/home.nix
-          
+
         ];
       };
     };
