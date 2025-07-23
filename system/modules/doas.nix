@@ -1,8 +1,8 @@
 { pkgs, ...}:
 {
-  security.sudo.enable = true; # Отключаем sudo
+  security.sudo.enable = false; # Отключаем sudo
   security.doas = {
-    enable = false;
+    enable = true;
     extraRules = [
       {
         users = ["ivan"];

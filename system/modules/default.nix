@@ -5,13 +5,13 @@
     ./virt.nix
     ./boot.nix
     #./doas.nix
-    ./minecraft-server.nix
+    #./minecraft-server.nix
     ./packages.nix
     ./intern.nix
     ./nix-settings.nix
     ./steam.nix
     ./zram.nix
-    ./WM
+    #./WM
     ./xray.nix
   ];
 }

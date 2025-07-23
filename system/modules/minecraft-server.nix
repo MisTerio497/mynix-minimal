@@ -1,4 +1,9 @@
-{ pkgs, lib, inputs, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
@@ -8,7 +13,7 @@
     enable = true;
     eula = true; # Автоматически принимает EULA
     dataDir = "/var/lib/minecraft/atdm"; # Лучше использовать /var/lib для серверных данных
-    
+
     servers.atdm = {
       enable = true;
       package = pkgs.papermcServers.papermc-1_21_5;
@@ -28,7 +33,7 @@
         motd = "NixOS Minecraft server!";
         enable-command-block = true; # вместо allow-cheats
         white-list = false;
-        online-mode = true; # важно для безопасности
+        online-mode = true;
         view-distance = 10;
         simulation-distance = 8;
       };
