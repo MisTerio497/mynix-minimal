@@ -36,7 +36,11 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
   programs.fish.enable = true;
-
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    XDG_SESSION_TYPE = "wayland";
+    QT_QPA_PLATFORM = "wayland";
+  };
   # Конфигурация пользователя (исправленная)
   users.users.ivan = {
     isNormalUser = true;
@@ -53,7 +57,7 @@
     createHome = true;
     home = "/home/ivan";
   };
-
+  programs.adb.enable = true;
   # Install firefox.
   programs.firefox.enable = true;
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).

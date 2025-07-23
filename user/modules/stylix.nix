@@ -4,7 +4,7 @@
     enable = true;
     autoEnable = false;
     image = ./../wallpapers/anime-tayn.jpg;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-frappe.yaml";
     polarity = "dark";
     targets = {
       gtk.enable = false;

@@ -108,11 +108,11 @@
       };
       ui_font_size = lib.mkForce 25;
       buffer_font_size = lib.mkForce 25;
-      theme = lib.mkForce {
-        mode = "system";
-        light = "One Light";
-        dark = "Gruvbox Dark Hard";
-      };
+      # theme = lib.mkForce {
+      #   mode = "system";
+      #   light = "One Light";
+      #   dark = "Gruvbox Dark Hard";
+      # };
       show_whitespaces = "all";
     };
   };

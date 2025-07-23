@@ -15,6 +15,7 @@
       "ru.linux_gaming.PortProton"
       "io.github.vikdevelop.SaveDesktop"
       "com.github.tchx84.Flatseal"
+      "org.vinegarhq.Sober"
     ];
     update.auto = {
       enable = true;
