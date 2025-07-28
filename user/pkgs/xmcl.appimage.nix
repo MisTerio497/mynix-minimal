@@ -2,7 +2,7 @@
 { lib, stdenv, fetchurl, makeDesktopItem, appimageTools, fuse }:
 
 let
-  version = "0.51.1";
+  version = "0.51.2";
   pname = "xmcl";
   src = fetchurl {
     url = "https://github.com/Voxelum/x-minecraft-launcher/releases/download/v${version}/xmcl-${version}-x86_64.AppImage";
