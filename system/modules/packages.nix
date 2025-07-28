@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   inputs,
   ...
 }:
@@ -24,9 +25,10 @@ in
   services.hardware.openrgb.enable = true;
   environment.systemPackages = with pkgs; [
     pciutils
+    lact
     mesa-demos
     switcheroo-control
-    home-manager
+    #home-manager
     efibootmgr
     jdk8
     jdk17

@@ -36,4 +36,9 @@
     spiceUSBRedirection.enable = true;
   };
   services.spice-vdagentd.enable = true;
+  systemd.services.libvirtd.postStart = ''
+    sleep 1  # Дать libvirtd время на инициализацию
+    sudo -u root virsh net-start default || true
+    sudo -u root virsh net-autostart default || true
+  '';
 }

@@ -11,19 +11,15 @@
       enable32Bit = true;
     };
   };
-  services.xserver.enable = true;
   services.xserver.videoDrivers = [
     "nvidia"
   ];
 
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.production;
-    open = false;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    open = true;
     modesetting.enable = true;
     forceFullCompositionPipeline = true;
-    powerManagement = {
-      enable = true;
-      finegrained = true;
-    };
+    powerManagement.finegrained = true;
   };
 }
