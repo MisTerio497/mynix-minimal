@@ -22,11 +22,14 @@
   home.packages = with pkgs; [
     inputs.nix-photogimp3.packages.${pkgs.system}.default
     inputs.zen-browser.packages.${pkgs.system}.default
+    (blender.override {
+      cudaSupport = true;
+    })
+    davinci-resolve-studio
     vlc
     prismlauncher
     qbittorrent
     krita
-    blender
     libreoffice-qt6
     jetbrains.idea-community-bin
     _64gram

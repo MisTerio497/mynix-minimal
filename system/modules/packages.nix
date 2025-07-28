@@ -25,10 +25,8 @@ in
   services.hardware.openrgb.enable = true;
   environment.systemPackages = with pkgs; [
     pciutils
-    lact
     mesa-demos
     switcheroo-control
-    #home-manager
     efibootmgr
     jdk8
     jdk17
@@ -50,7 +48,7 @@ in
       }
     ];
     packages = [
-      
+
     ];
     update.auto = {
       enable = true;
