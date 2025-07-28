@@ -25,7 +25,7 @@
     (blender.override {
       cudaSupport = true;
     })
-    davinci-resolve-studio
+    (pkgs.callPackage ./../pkgs/davinci-resolve-paid.nix  {})
     vlc
     prismlauncher
     qbittorrent
