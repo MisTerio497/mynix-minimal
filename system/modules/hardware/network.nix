@@ -33,14 +33,6 @@
     };
     firewall = {
       enable = false;
-      # Ghost Recon Winlands
-      # allowedUDPPorts = [ 9103 ]; # Постоянный порт
-      # allowedUDPPortRanges = [
-      #   {
-      #     from = 33000;
-      #     to = 60000;
-      #   }
-      # ];
     };
   };
 }

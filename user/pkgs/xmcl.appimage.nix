@@ -6,7 +6,7 @@ let
   pname = "xmcl";
   src = fetchurl {
     url = "https://github.com/Voxelum/x-minecraft-launcher/releases/download/v${version}/xmcl-${version}-x86_64.AppImage";
-    sha256 = "sha256-dhptGQNKjeCHBkuSCbkcrYJ/F/rx2HicRfAES5VWaxM=";
+    sha256 = "sha256-KpbILfOxeBwEJNrZuRFWamASMRWv1Bzx8yTzmwe3e3g=";
   };
   appimageContents = appimageTools.extractType2 {
     inherit pname version src;
@@ -24,9 +24,9 @@ let
 in appimageTools.wrapType2 rec {
   inherit pname version src;
   extraPkgs = pkgs: with pkgs; [ fuse ]; # Дополнительные зависимости, если нужны
-  profile = ''
-    export XMCL_DATA_DIR="$HOME/.local/share/xmcl"
-  '';
+  # profile = ''
+  #   export XMCL_DATA_DIR="$HOME/.local/share/xmcl"
+  # '';
   extraInstallCommands = ''
       mkdir -p $out/share/applications
       cp ${desktopItem}/share/applications/* $out/share/applications/

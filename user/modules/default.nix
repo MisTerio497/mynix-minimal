@@ -8,6 +8,7 @@
     ./shell.nix
     ./vesktop.nix
     ./spicetify.nix
+    ./youtube-music.nix
     #./../wm/hypr.nix
   ];
 }

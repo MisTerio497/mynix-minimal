@@ -15,6 +15,7 @@
   xdg.desktopEntries = {
     vesktop = {
       name = "Vencord Desktop";
+      genericName = "Discord client";
       exec = "vesktop --disable-gpu-sandbox --proxy-server=socks5://127.0.0.1:10808";
       icon = "vesktop";
       type = "Application";

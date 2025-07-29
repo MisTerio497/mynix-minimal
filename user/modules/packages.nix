@@ -26,6 +26,7 @@
       cudaSupport = true;
     })
     (pkgs.callPackage ./../pkgs/davinci-resolve-paid.nix  {})
+    (pkgs.callPackage ./../pkgs/xmcl.appimage.nix  {})
     vlc
     prismlauncher
     qbittorrent
