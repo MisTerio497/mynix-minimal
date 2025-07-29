@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    
+
     # System modules
     agenix = {
       url = "github:ryantm/agenix";
@@ -30,6 +30,10 @@
     # nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    youtube-music = {
+      url = "github:h-banii/youtube-music-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser = {
@@ -76,7 +80,12 @@
       pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
       lib = nixpkgs.lib;
       specialArgs = {
-        inherit inputs username hostname pkgs-unstable;
+        inherit
+          inputs
+          username
+          hostname
+          pkgs-unstable
+          ;
       };
     in
     {
