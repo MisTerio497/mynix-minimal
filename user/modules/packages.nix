@@ -28,6 +28,7 @@
     (pkgs.callPackage ./../pkgs/davinci-resolve-paid.nix  {})
     (pkgs.callPackage ./../pkgs/xmcl.appimage.nix  {})
     vlc
+    helvum
     prismlauncher
     qbittorrent
     krita
