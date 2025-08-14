@@ -9,19 +9,28 @@
   system.autoUpgrade = {
     enable = true;
     flake = "/home/ivan/mynix-minimal";
-    flags = [
-      "--update-input"
-      "nixpkgs"
-    ];
     dates = "weekly";
     allowReboot = false;
     randomizedDelaySec = "30min"; # случайная задержка
   };
-  programs.ssh = {
-    package = pkgs.openssh; # Явное указание пакета
-    startAgent = true; # Автозапуск ssh-agent
+  # programs.ssh = {
+  #   package = pkgs.openssh; # Явное указание пакета
+  #   startAgent = true; # Автозапуск ssh-agent
+  # };
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
   };
-
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+  programs.nh = {
+    enable = true;
+    # clean.enable = true;
+    # clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/ivan/mynix-minimal"; # sets NH_OS_FLAKE variable for you
+  };
   services.power-profiles-daemon.enable = true;
   programs.dconf.enable = true;
   # Enable the X11 windowing system.
@@ -52,6 +61,7 @@
       "video"
       "audio"
       "pipewire"
+      "networkmanager"
     ];
     shell = pkgs.fish;
     createHome = true;

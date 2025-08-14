@@ -2,7 +2,12 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # System modules
     agenix = {
       url = "github:ryantm/agenix";
@@ -11,7 +16,6 @@
 
     # Desktop environment
     hyprland.url = "github:hyprwm/Hyprland";
-
     # User packages and config
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
@@ -63,8 +67,10 @@
     {
       nixpkgs,
       nixpkgs-unstable,
+      nixos-hardware,
       home-manager,
       disko,
+      sops-nix,
       flake-programs-sqlite,
       agenix,
       stylix,
@@ -97,6 +103,8 @@
           disko.nixosModules.disko
           flake-programs-sqlite.nixosModules.programs-sqlite
           agenix.nixosModules.default
+          sops-nix.nixosModules.sops
+          nixos-hardware.nixosModules.asus-fa507nv
           ./system/configuration.nix
           ./disko.nix
         ];

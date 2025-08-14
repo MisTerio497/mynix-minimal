@@ -9,5 +9,8 @@
       up = "home-manager switch --flake ~/mynix-minimal#ivan -b bak";
       helix = "hx";
     };
+    interactiveShellInit = ''
+      set -U fish_greeting ""
+    '';
   };
 }

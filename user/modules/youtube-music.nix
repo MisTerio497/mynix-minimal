@@ -20,6 +20,7 @@
       adblocker.enabled = true;
     };
   };
+
   xdg.desktopEntries.youtube-music = {
     name = "YouTube Music";
     genericName = "Music Player";

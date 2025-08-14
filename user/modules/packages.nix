@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, username,... }:
 {
   nixpkgs.config.allowUnfree = true;
   fonts.fontconfig.enable = true;
@@ -18,6 +18,7 @@
       ];
     };
   };
+
 
   home.packages = with pkgs; [
     inputs.nix-photogimp3.packages.${pkgs.system}.default
