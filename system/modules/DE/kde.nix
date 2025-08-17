@@ -11,16 +11,16 @@
       # autoLogin.user = "ivan";
     };
   };
-  security.pam.services = {
-    sddm.enableKwallet = true;  # Для SDDM
+  # security.pam.services = {
+  #   sddm.enableKwallet = true;  # Для SDDM
 
-    ivan = {
-      kwallet = {
-        enable = true;
-        package = pkgs.kdePackages.kwallet-pam;
-      };
-    };
-  };
+  #   ivan = {
+  #     kwallet = {
+  #       enable = true;
+  #       package = pkgs.kdePackages.kwallet-pam;
+  #     };
+  #   };
+  # };
   environment.systemPackages = with pkgs; [
     kdePackages.kcalc # Calculator
     kdePackages.ksystemlog # KDE SystemLog Application

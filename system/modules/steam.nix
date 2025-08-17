@@ -8,8 +8,7 @@
     protontricks.enable = true;
     # extraCompatPackages = with pkgs; [
     #   inputs.nix-proton-cachyos.packages.${pkgs.system}.proton-cachyos
-    # ]
-    ;
+    # ];
   };
 
   programs.gamescope = {
