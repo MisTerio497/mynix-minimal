@@ -7,7 +7,6 @@
 }:
 
 let
-  winapps = inputs.winapps.packages."${pkgs.system}".winapps;
   agenix = inputs.agenix.packages."${pkgs.system}".default;
 in
 {
@@ -32,7 +31,6 @@ in
     efibootmgr
     jdk8
     jdk17
-    winapps
     agenix
     tree
     package-version-server

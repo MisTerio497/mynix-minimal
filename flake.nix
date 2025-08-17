@@ -4,18 +4,16 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # sops-nix = {
+    #   url = "github:Mic92/sops-nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     # System modules
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Desktop environment
-    hyprland.url = "github:hyprwm/Hyprland";
     # User packages and config
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
@@ -30,8 +28,22 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak";
-    nix-proton-cachyos.url = "github:ewtodd/nix-proton-cachyos";
+     # Delete in future
     # nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+    # nix-proton-cachyos.url = "github:ewtodd/nix-proton-cachyos";
+    # winapps = {
+    #   url = "github:winapps-org/winapps";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    # lsfg-vk-flake = {
+    #   url = "github:pabloaul/lsfg-vk-flake/main";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    # nix-photogimp3 = {
+    #   url = "github:3nol/nix-photogimp3";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -42,18 +54,6 @@
     };
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    winapps = {
-      url = "github:winapps-org/winapps";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    lsfg-vk-flake = {
-      url = "github:pabloaul/lsfg-vk-flake/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-photogimp3 = {
-      url = "github:3nol/nix-photogimp3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Utilities
@@ -70,7 +70,6 @@
       nixos-hardware,
       home-manager,
       disko,
-      sops-nix,
       flake-programs-sqlite,
       agenix,
       stylix,
@@ -103,7 +102,7 @@
           disko.nixosModules.disko
           flake-programs-sqlite.nixosModules.programs-sqlite
           agenix.nixosModules.default
-          sops-nix.nixosModules.sops
+          #sops-nix.nixosModules.sops
           nixos-hardware.nixosModules.asus-fa507nv
           ./system/configuration.nix
           ./disko.nix
