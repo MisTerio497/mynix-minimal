@@ -13,8 +13,11 @@
         content = {
           type = "gpt";
           partitions = {
-            # EFI Partition (500MB)
-            boot = {
+            windows = {
+               size = "300G";
+               type = "0700"; # NTFS
+             };
+		boot = {
               size = "500M";
               type = "EF00";
               content = {
@@ -28,18 +31,9 @@
                 ];
               };
             };
-
-            # windows = {
-            #   size = "300G";
-            #   type = "0700"; # NTFS
-            #   content = {
-            #     type = "raw"; # Windows сама отформатирует в NTFS
-            #   };
-            # };
-
             # LVM Physical Volume (Remaining space)
             lvm = {
-              size = "100FREE%";
+              size = "100%";
               content = {
                 type = "lvm_pv";
                 vg = "pool";
@@ -54,15 +48,6 @@
       "pool" = {
         type = "lvm_vg";
         lvs = {
-          # delete games in future
-          games = {
-            size = "200G";
-            content = {
-              type = "filesystem";
-              format = "ext4";
-              mountpoint = "/home/ivan/Games";
-            };
-          };
           root = {
             size = "100%FREE";
             content = {

@@ -21,21 +21,21 @@
     };
   };
 
-  xdg.desktopEntries.youtube-music = {
-    name = "YouTube Music";
-    genericName = "Music Player";
-    comment = "A desktop client for YouTube Music with plugin support";
-    exec = "youtube-music --user-data-dir=/home/${username}/.config/youtube-music";
-    icon = "youtube-music";
-    type = "Application";
-    categories = [
-      "AudioVideo"
-      "Player"
-      "Music"
-    ];
-    settings = {
-      StartupWMClass = "youtube-music";
-    };
-  };
+  # xdg.desktopEntries.youtube-music = {
+  #   name = "YouTube Music";
+  #   genericName = "Music Player";
+  #   comment = "A desktop client for YouTube Music with plugin support";
+  #   exec = "youtube-music";
+  #   icon = "youtube-music";
+  #   type = "Application";
+  #   categories = [
+  #     "AudioVideo"
+  #     "Player"
+  #     "Music"
+  #   ];
+  #   settings = {
+  #     StartupWMClass = "youtube-music";
+  #   };
+  # };
 
 }

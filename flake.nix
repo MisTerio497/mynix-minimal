@@ -3,7 +3,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    
+
     # sops-nix = {
     #   url = "github:Mic92/sops-nix";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -28,7 +28,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak";
-     # Delete in future
+    # Delete in future
     # nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     # nix-proton-cachyos.url = "github:ewtodd/nix-proton-cachyos";
     # winapps = {
@@ -43,7 +43,7 @@
     #   url = "github:3nol/nix-photogimp3";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
-    
+
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -70,6 +70,7 @@
       nixos-hardware,
       home-manager,
       disko,
+      nix-flatpak,
       flake-programs-sqlite,
       agenix,
       stylix,
@@ -114,6 +115,7 @@
         extraSpecialArgs = specialArgs;
         modules = [
           stylix.homeModules.stylix
+          nix-flatpak.homeManagerModules.nix-flatpak
           ./user/home.nix
         ];
       };

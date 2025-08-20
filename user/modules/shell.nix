@@ -5,8 +5,8 @@
       zed = "zeditor";
       cls = "clear";
       ll = "ls -la";
-      re = "nh os switch";
-      up = "nh home switch";
+      re = "sudo nh os switch -H nixos";
+      up = "nh home switch -c ivan";
       helix = "hx";
     };
     interactiveShellInit = ''
