@@ -20,12 +20,13 @@
 
   home.packages = with pkgs; [
     inputs.zen-browser.packages.${pkgs.system}.default
-    (blender.override {
-      cudaSupport = true;
-    })
+    # (blender.override {
+    #   cudaSupport = true;
+    # })
     # (pkgs.callPackage ./../pkgs/davinci-resolve-paid.nix  {})
     # (pkgs.callPackage ./../pkgs/xmcl.appimage.nix  {})
     vlc
+    unrar-free
     prismlauncher
     qbittorrent
     krita
