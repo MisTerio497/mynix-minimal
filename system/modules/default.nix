@@ -2,6 +2,7 @@
   imports = [
     ./hardware
     ./DE
+    ./nextcloud.nix
     #./virt.nix
     ./boot.nix
     #./doas.nix

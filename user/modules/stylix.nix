@@ -8,27 +8,27 @@
     polarity = "dark";
     targets = {
       gtk.enable = true;
-      qt.enable = true;
+      qt.enable = false;
       zed.enable = true;
       kde.enable = true;
     };
-    fonts = {
-      monospace = {
-        package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
-        name = "JetBrainsMono Nerd Font Mono";
-      };
-      sansSerif = {
-        package = pkgs.noto-fonts;
-        name = "Noto Sans";
-      };
-      serif = {
-        package = pkgs.noto-fonts;
-        name = "Noto Serif";
-      };
-      emoji = {
-        package = pkgs.noto-fonts-emoji;
-        name = "Noto Color Emoji";
-      };
-    };
+  #   fonts = {
+  #     monospace = {
+  #       package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
+  #       name = "JetBrainsMono Nerd Font Mono";
+  #     };
+  #     sansSerif = {
+  #       package = pkgs.noto-fonts;
+  #       name = "Noto Sans";
+  #     };
+  #     serif = {
+  #       package = pkgs.noto-fonts;
+  #       name = "Noto Serif";
+  #     };
+  #     emoji = {
+  #       package = pkgs.noto-fonts-emoji;
+  #       name = "Noto Color Emoji";
+  #     };
+  #   };
   };
 }
