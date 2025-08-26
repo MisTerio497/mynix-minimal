@@ -53,6 +53,7 @@ in
         "Videos"
         "Templates"
         "Public"
+        "Windows"
       ];
     in
     lib.hm.dag.entryAfter [ "writeBoundary" ] (

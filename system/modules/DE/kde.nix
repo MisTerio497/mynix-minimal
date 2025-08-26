@@ -7,8 +7,8 @@
     displayManager = {
       sddm.enable = true;
       sddm.wayland.enable = true;
-      # autoLogin.enable = true;
-      # autoLogin.user = "ivan";
+      autoLogin.enable = true;
+      autoLogin.user = "ivan";
     };
   };
   # security.pam.services = {

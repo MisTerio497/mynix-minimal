@@ -3,12 +3,12 @@
   stylix = {
     enable = true;
     autoEnable = false;
-    #image = ./../wallpapers/anime-tayn.jpg;
+    image = ./../wallpapers/anime-tayn.jpg;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/chalk.yaml";
     polarity = "dark";
     targets = {
-      gtk.enable = false;
-      qt.enable = false;
+      gtk.enable = true;
+      qt.enable = true;
       zed.enable = true;
       kde.enable = true;
     };

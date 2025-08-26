@@ -5,7 +5,7 @@
       zed = "zeditor";
       cls = "clear";
       ll = "ls -la";
-      re = "sudo nh os switch -H nixos";
+      re = "nh os switch -H nixos";
       up = "nh home switch -c ivan";
       helix = "hx";
     };

@@ -14,10 +14,15 @@
           type = "gpt";
           partitions = {
             windows = {
-               size = "300G";
-               type = "0700"; # NTFS
-             };
-		boot = {
+              size = "300G";
+              type = "0700"; # NTFS
+              content = {
+                type = "filesystem";
+                format = "ntfs";
+                mountpoint = "/home/ivan/Windows";
+              };
+            };
+            boot = {
               size = "500M";
               type = "EF00";
               content = {
