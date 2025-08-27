@@ -2,7 +2,7 @@
 
 let
   YOUR_NETWORK_ID = "8286ac0e473a84fa"; # замени на свой ID
-  ZEROTIER_IP = "172.28.23.9";
+  ZEROTIER_IP = "172.28.50.133";
 in
 {
   ############################################
@@ -10,7 +10,7 @@ in
   ############################################
   services.nextcloud = {
     enable = true;
-    hostName = "localhost";
+    hostName = "nextcloud.local";
     config = {
       adminpassFile = "${pkgs.writeText "root" "test12345"}";
       dbtype = "pgsql";
