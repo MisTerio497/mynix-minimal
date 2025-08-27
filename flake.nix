@@ -110,9 +110,9 @@
             ./disko.nix
           ];
         };
-        
+
         homelab = lib.nixosSystem {
-          inherit system inputs;
+          inherit system;
           modules = [
             flake-programs-sqlite.nixosModules.programs-sqlite
             #sops-nix.nixosModules.sops
