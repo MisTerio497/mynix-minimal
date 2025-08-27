@@ -1,3 +1,4 @@
+{ username, hostname, ...}:
 {
   programs.fish = {
     enable = true;
@@ -5,8 +6,8 @@
       zed = "zeditor";
       cls = "clear";
       ll = "ls -la";
-      re = "nh os switch -H nixos";
-      up = "nh home switch -c ivan";
+      re = "nh os switch -H ${hostname}";
+      up = "nh home switch -c ${username}";
       helix = "hx";
     };
     interactiveShellInit = ''
