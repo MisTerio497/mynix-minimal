@@ -113,6 +113,7 @@
 
         homelab = lib.nixosSystem {
           inherit system;
+          specialArgs = { inherit inputs; };
           modules = [
             flake-programs-sqlite.nixosModules.programs-sqlite
             #sops-nix.nixosModules.sops
