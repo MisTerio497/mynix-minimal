@@ -117,6 +117,7 @@
           modules = [
             flake-programs-sqlite.nixosModules.programs-sqlite
             #sops-nix.nixosModules.sops
+            agenix.nixosModules.default
             ./systems/homelab/configuration.nix
           ];
         };
