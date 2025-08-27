@@ -79,7 +79,7 @@
     let
       system = "x86_64-linux";
       username = "ivan";
-      hostname = "nixos";
+      hostname = "asus";
 
       # Создаем pkgs с поддержкой overlays
       pkgs = nixpkgs.legacyPackages.${system};
@@ -95,19 +95,30 @@
       };
     in
     {
-      nixosConfigurations.${hostname} = lib.nixosSystem {
-        inherit system;
-        specialArgs = specialArgs;
-        modules = [
-          home-manager.nixosModules.home-manager
-          disko.nixosModules.disko
-          flake-programs-sqlite.nixosModules.programs-sqlite
-          agenix.nixosModules.default
-          #sops-nix.nixosModules.sops
-          nixos-hardware.nixosModules.asus-fa507nv
-          ./system/configuration.nix
-          ./disko.nix
-        ];
+      nixosConfigurations = {
+        ${hostname} = lib.nixosSystem {
+          inherit system;
+          specialArgs = specialArgs;
+          modules = [
+            home-manager.nixosModules.home-manager
+            disko.nixosModules.disko
+            flake-programs-sqlite.nixosModules.programs-sqlite
+            agenix.nixosModules.default
+            #sops-nix.nixosModules.sops
+            nixos-hardware.nixosModules.asus-fa507nv
+            ./systems/asus/configuration.nix
+            ./disko.nix
+          ];
+        };
+        
+        homelab = lib.nixosSystem {
+          inherit system inputs;
+          modules = [
+            flake-programs-sqlite.nixosModules.programs-sqlite
+            #sops-nix.nixosModules.sops
+            ./systems/homelab/configuration.nix
+          ];
+        };
       };
 
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
