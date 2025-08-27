@@ -1,7 +1,10 @@
 { pkgs, lib, ... }:
 {
 
-  services.zerotierone.enable = true;
+  services.zerotierone = {
+    enable = true;
+    joinNetworks = [ "8286ac0e473a84fa" ];
+  };
   networking = {
     hostName = "nixos";
     nameservers = [
