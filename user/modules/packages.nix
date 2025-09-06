@@ -36,13 +36,14 @@
     krita
     libreoffice-qt6
     jetbrains.idea-community-bin
+    jetbrains.webstorm
     _64gram
     system-config-printer
   ];
   xdg.autostart = {
     enable = true;
     entries = [
-      "${pkgs._64gram}/bin/_64gram/share/applications/io.github.tdesktop_x64.TDesktop.desktop"
+      "${pkgs._64gram}/share/applications/io.github.tdesktop_x64.TDesktop.desktop"
     ];
   };
 }

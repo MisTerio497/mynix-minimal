@@ -4,10 +4,9 @@
 
   services.tun2socks = {
     enable = true;
-    interface = "tun0";
+    interface = "jetbrain-tun0";
     proxy = "socks5://127.0.0.1:10808";
     whitelist = [
-      "www.jetbrains.com"
       "download.jetbrains.com"
       "plugins.jetbrains.com"
       "account.jetbrains.com"

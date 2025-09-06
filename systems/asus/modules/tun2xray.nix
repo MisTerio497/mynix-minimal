@@ -5,57 +5,66 @@ with lib;
 let
   cfg = config.services.tun2socks;
 
+  # Резолвим домены → получаем IPv4
   resolvedIpsScript = pkgs.writeScript "resolve-domains.sh" ''
     #!/bin/sh
     for domain in ${toString cfg.whitelist}; do
-      ${pkgs.dnsutils}/bin/dig +short "$domain" | \
-        grep -E '^[0-9]+(\.[0-9]+){3}$' || echo "Failed to resolve $domain" >&2
+      ${pkgs.dnsutils}/bin/dig +short "$domain" A | \
+        grep -E '^[0-9]{1,3}(\.[0-9]{1,3}){3}$' | sort -u
     done
   '';
 
+  nftTableName = "tun2socks";
+
   startupScript = pkgs.writeScript "tun2socks-start.sh" ''
     #!/bin/sh
+    set -e
+
     echo 1 > /proc/sys/net/ipv4/ip_forward
 
-    # Setup TUN interface if not present
+    # Создаём TUN-интерфейс, если его нет
     if ! ${pkgs.iproute2}/bin/ip link show ${cfg.interface} >/dev/null 2>&1; then
       ${pkgs.iproute2}/bin/ip tuntap add mode tun dev ${cfg.interface}
       ${pkgs.iproute2}/bin/ip addr add 10.0.0.1/24 dev ${cfg.interface}
       ${pkgs.iproute2}/bin/ip link set dev ${cfg.interface} up
     fi
 
-    for ip in $(${resolvedIpsScript}); do
-      echo "[tun2socks] Routing $ip via ${cfg.interface}"
-      ${pkgs.iproute2}/bin/ip route replace $ip via 10.0.0.2 dev ${cfg.interface} || true
-      ${pkgs.iptables}/bin/iptables -t mangle -A OUTPUT -d $ip -j MARK --set-mark 100 || true
-    done
+    # Настраиваем таблицу маршрутов 100 для помеченного трафика
+    ${pkgs.iproute2}/bin/ip rule add fwmark 100 table 100 || true
+    ${pkgs.iproute2}/bin/ip route add default dev ${cfg.interface} table 100 || true
 
-    ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -o ${cfg.interface} -j MASQUERADE || true
-    ${pkgs.iptables}/bin/iptables -A OUTPUT -t mangle -m mark --mark 100 -j ACCEPT || true
+    # Инициализируем nftables
+    ${pkgs.nftables}/bin/nft flush table inet ${nftTableName} 2>/dev/null || true
+    ${pkgs.nftables}/bin/nft add table inet ${nftTableName}
+    ${pkgs.nftables}/bin/nft add chain inet ${nftTableName} output '{ type filter hook output priority -150; }'
+
+    # Маркируем пакеты для whitelist-доменов
+    for ip in $(${resolvedIpsScript}); do
+      echo "[tun2socks] Marking $ip"
+      ${pkgs.nftables}/bin/nft add rule inet ${nftTableName} output ip daddr $ip meta mark set 100
+    done
   '';
 
   shutdownScript = pkgs.writeScript "tun2socks-stop.sh" ''
     #!/bin/sh
-    for ip in $(${resolvedIpsScript}); do
-      ${pkgs.iptables}/bin/iptables -t mangle -D OUTPUT -d $ip -j MARK --set-mark 100 2>/dev/null || true
-      ${pkgs.iproute2}/bin/ip route del $ip via 10.0.0.2 dev ${cfg.interface} 2>/dev/null || true
-    done
+    set +e
+    echo "🧹 Cleaning up tun2socks..."
 
-    ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -o ${cfg.interface} -j MASQUERADE 2>/dev/null || true
-    ${pkgs.iptables}/bin/iptables -D OUTPUT -t mangle -m mark --mark 100 -j ACCEPT 2>/dev/null || true
-
+    ${pkgs.nftables}/bin/nft delete table inet ${nftTableName} 2>/dev/null || true
+    ${pkgs.iproute2}/bin/ip rule del fwmark 100 table 100 2>/dev/null || true
+    ${pkgs.iproute2}/bin/ip route flush table 100 2>/dev/null || true
     ${pkgs.iproute2}/bin/ip link delete ${cfg.interface} 2>/dev/null || true
-  '';
 
+    echo "✅ tun2socks stopped."
+  '';
 in
 {
   options.services.tun2socks = {
-    enable = mkEnableOption "Enable tun2socks tunneling";
+    enable = mkEnableOption "Enable tun2socks tunneling with nftables";
 
     package = mkOption {
       type = types.package;
       default = pkgs.tun2socks;
-      defaultText = literalExpression "pkgs.tun2socks";
       description = "Package providing tun2socks";
     };
 
@@ -87,18 +96,17 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [
       cfg.package
-      pkgs.iptables
+      pkgs.nftables
       pkgs.iproute2
       pkgs.dnsutils
     ];
 
     boot.kernelModules = [ "tun" ];
-
+    networking.nftables.enable = lib.mkDefault true;
     systemd.services.tun2socks = {
-      description = "tun2socks dynamic tunnel routing service";
+      description = "tun2socks split-tunnel routing service (fwmark)";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      requires = [ "network.target" ];
 
       serviceConfig = {
         ExecStartPre = startupScript;
@@ -114,14 +122,8 @@ in
         RestartSec = "5s";
         Type = "simple";
         User = "root";
-        AmbientCapabilities = [
-          "CAP_NET_ADMIN"
-          "CAP_NET_RAW"
-        ];
-        CapabilityBoundingSet = [
-          "CAP_NET_ADMIN"
-          "CAP_NET_RAW"
-        ];
+        AmbientCapabilities = [ "CAP_NET_ADMIN" "CAP_NET_RAW" ];
+        CapabilityBoundingSet = [ "CAP_NET_ADMIN" "CAP_NET_RAW" ];
         StandardOutput = "journal";
         StandardError = "journal";
       };

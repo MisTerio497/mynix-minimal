@@ -1,17 +1,11 @@
 { pkgs, lib, ... }:
 {
-
-  services.zerotierone = {
-    enable = true;
-    joinNetworks = [ "8286ac0e473a84fa" ];
-  };
   networking = {
     hostName = "nixos";
     nameservers = [
       "1.1.1.1"
       "1.0.0.1"
     ];
-    nftables.enable = true;
     networkmanager = {
       enable = true;
       wifi.powersave = false;
@@ -130,7 +124,7 @@
       };
     };
     firewall = {
-      enable = false;
+      enable = true;
     };
   };
 }

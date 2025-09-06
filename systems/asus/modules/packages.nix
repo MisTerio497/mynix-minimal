@@ -30,7 +30,6 @@ in
     switcheroo-control
     efibootmgr
     jdk8
-    jdk17
     agenix
     tree
     package-version-server
