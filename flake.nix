@@ -105,7 +105,7 @@
             flake-programs-sqlite.nixosModules.programs-sqlite
             agenix.nixosModules.default
             #sops-nix.nixosModules.sops
-            nixos-hardware.nixosModules.asus-fa507nv
+            #nixos-hardware.nixosModules.asus-fa507nv
             ./systems/asus/configuration.nix
             ./disko.nix
           ];

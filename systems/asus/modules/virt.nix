@@ -1,10 +1,5 @@
 { pkgs, ... }:
 {
-  boot.kernelModules = [
-    "ip_tables"
-    "iptable_nat"
-  ];
-  # Enable common container config files in /etc/containers
   virtualisation.containers.enable = true;
   environment.systemPackages = with pkgs; [
     podman-compose

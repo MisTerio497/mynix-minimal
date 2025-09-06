@@ -22,8 +22,13 @@
 
     plymouth = {
       enable = true;
-      themePackages = [ pkgs.catppuccin-plymouth ];
-      theme = "catppuccin-macchiato";
+      theme = "rings";
+      themePackages = with pkgs; [
+        # By default we would install all themes
+        (adi1090x-plymouth-themes.override {
+          selected_themes = [ "rings" ];
+        })
+      ];
     };
     kernelParams = [
       "quiet"
@@ -32,7 +37,12 @@
       "udev.log_priority=3"
       "rd.systemd.show_status=auto"
     ];
-    supportedFilesystems = [ "ntfs" "ext4" "exfat" "vfat"];
+    supportedFilesystems = [
+      "ntfs"
+      "ext4"
+      "exfat"
+      "vfat"
+    ];
     initrd = {
       enable = true;
       verbose = false;

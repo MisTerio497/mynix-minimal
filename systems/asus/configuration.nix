@@ -31,7 +31,8 @@
     # clean.extraArgs = "--keep-since 4d --keep 3";
     flake = "/home/ivan/mynix-minimal"; # sets NH_OS_FLAKE variable for you
   };
-  services.power-profiles-daemon.enable = true;
+  services.power-profiles-daemon.enable = false;
+  services.auto-cpufreq.enable = true;
   programs.dconf.enable = true;
   # Enable the X11 windowing system.
   services.libinput.enable = true;

@@ -8,6 +8,7 @@ in
   ];
   programs.spicetify = {
       enable = true;
+      wayland = true;
       theme = lib.mkForce spicePkgs.themes.catppuccin;
       enabledExtensions = with spicePkgs.extensions; [ adblock ];
       colorScheme = lib.mkForce "mocha";

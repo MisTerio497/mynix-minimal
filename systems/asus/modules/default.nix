@@ -2,8 +2,7 @@
   imports = [
     ./hardware
     ./DE
-    #./nextcloud.nix
-    #./virt.nix
+    ./virt.nix
     ./boot.nix
     #./doas.nix
     #./minecraft-server.nix

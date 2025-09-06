@@ -1,4 +1,9 @@
-{ pkgs, inputs, username,... }:
+{
+  pkgs,
+  inputs,
+  username,
+  ...
+}:
 {
   nixpkgs.config.allowUnfree = true;
   fonts.fontconfig.enable = true;
@@ -17,7 +22,6 @@
     };
   };
 
-
   home.packages = with pkgs; [
     inputs.zen-browser.packages.${pkgs.system}.default
     # (blender.override {
@@ -35,4 +39,10 @@
     _64gram
     system-config-printer
   ];
+  xdg.autostart = {
+    enable = true;
+    entries = [
+      "${pkgs._64gram}/bin/_64gram/share/applications/io.github.tdesktop_x64.TDesktop.desktop"
+    ];
+  };
 }

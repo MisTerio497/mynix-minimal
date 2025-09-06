@@ -1,9 +1,20 @@
-{ lib, ...}:
+{ lib, config, ... }:
 {
+  services.xserver.videoDrivers = [
+    "nvidia"
+  ];
+  services.supergfxd.enable = true;
+  services.supergfxd.settings = {
+    mode = "Hybrid";
+    vfio_enable = false;
+    hotplug_type = "None";
+  };
   hardware.nvidia = {
-    prime = {
-      amdgpuBusId = lib.mkForce "PCI:53:0:0"; # Converted from 35:00.0
-      nvidiaBusId = lib.mkForce "PCI:1:0:0"; # Converted from 01:00.0
-    };
+    modesetting.enable = true;
+    powerManagement.enable = true;
+    dynamicBoost.enable = true;
+    open = true;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 }
