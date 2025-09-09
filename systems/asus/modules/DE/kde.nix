@@ -21,10 +21,11 @@
   #     };
   #   };
   # };
-  environment.systemPackages = with pkgs; [
-    kdePackages.kcalc # Calculator
-    kdePackages.ksystemlog # KDE SystemLog Application
-    kdePackages.sddm-kcm # Configuration module for SDDM
-    kdePackages.partitionmanager # Optional Manage the dis
+  environment.systemPackages = with pkgs.kdePackages; [
+    kcalc # Calculator
+    ksystemlog # KDE SystemLog Application
+    sddm-kcm # Configuration module for SDDM
+    partitionmanager # Optional Manage the dis
+    kcolorchooser # Pick color
   ];
 }

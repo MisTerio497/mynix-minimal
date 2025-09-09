@@ -37,6 +37,7 @@
     libreoffice-qt6
     jetbrains.idea-community-bin
     jetbrains.webstorm
+    typescript
     _64gram
     system-config-printer
   ];

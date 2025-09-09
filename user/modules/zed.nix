@@ -9,6 +9,9 @@
       pylint
       nixd
       nil
+      nodejs
+      typescript
+      typescript-language-server
       clang-tools
       neocmakelsp
       jsonnet-language-server
