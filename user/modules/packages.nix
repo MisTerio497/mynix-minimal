@@ -35,6 +35,7 @@
     qbittorrent
     krita
     libreoffice-qt6
+    # jetbrains-toolbox
     jetbrains.idea-community-bin
     jetbrains.webstorm
     typescript

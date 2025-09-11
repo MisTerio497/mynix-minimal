@@ -4,16 +4,6 @@ with lib;
 
 let
   cfg = config.services.tun2socks;
-
-  # Резолвим домены → получаем IPv4
-  resolvedIpsScript = pkgs.writeScript "resolve-domains.sh" ''
-    #!/bin/sh
-    for domain in ${toString cfg.whitelist}; do
-      ${pkgs.dnsutils}/bin/dig +short "$domain" A | \
-        grep -E '^[0-9]{1,3}(\.[0-9]{1,3}){3}$' | sort -u
-    done
-  '';
-
   nftTableName = "tun2socks";
 
   startupScript = pkgs.writeScript "tun2socks-start.sh" ''
@@ -22,6 +12,9 @@ let
 
     echo 1 > /proc/sys/net/ipv4/ip_forward
 
+    # Создаём ipset для whitelist (если не существует)
+    ${pkgs.ipset}/bin/ipset create whitelist hash:ip 2>/dev/null || true
+
     # Создаём TUN-интерфейс, если его нет
     if ! ${pkgs.iproute2}/bin/ip link show ${cfg.interface} >/dev/null 2>&1; then
       ${pkgs.iproute2}/bin/ip tuntap add mode tun dev ${cfg.interface}
@@ -29,38 +22,46 @@ let
       ${pkgs.iproute2}/bin/ip link set dev ${cfg.interface} up
     fi
 
-    # Настраиваем таблицу маршрутов 100 для помеченного трафика
-    ${pkgs.iproute2}/bin/ip rule add fwmark 100 table 100 || true
-    ${pkgs.iproute2}/bin/ip route add default dev ${cfg.interface} table 100 || true
+    # Настраиваем политику маршрутизации
+    ${pkgs.iproute2}/bin/ip rule add fwmark 100 table 100 2>/dev/null || true
+    ${pkgs.iproute2}/bin/ip route add default dev ${cfg.interface} table 100 2>/dev/null || true
 
     # Инициализируем nftables
     ${pkgs.nftables}/bin/nft flush table inet ${nftTableName} 2>/dev/null || true
     ${pkgs.nftables}/bin/nft add table inet ${nftTableName}
-    ${pkgs.nftables}/bin/nft add chain inet ${nftTableName} output '{ type filter hook output priority -150; }'
 
-    # Маркируем пакеты для whitelist-доменов
-    for ip in $(${resolvedIpsScript}); do
-      echo "[tun2socks] Marking $ip"
-      ${pkgs.nftables}/bin/nft add rule inet ${nftTableName} output ip daddr $ip meta mark set 100
-    done
+    # Создаём динамический set для IP
+    ${pkgs.nftables}/bin/nft add set inet ${nftTableName} whitelist { type ipv4_addr\; flags dynamic\; }
+
+    # Создаём цепочки
+    ${pkgs.nftables}/bin/nft add chain inet ${nftTableName} prerouting '{ type nat hook prerouting priority -100; }'
+    ${pkgs.nftables}/bin/nft add chain inet ${nftTableName} postrouting '{ type nat hook postrouting priority 100; }'
+    ${pkgs.nftables}/bin/nft add chain inet ${nftTableName} output '{ type route hook output priority -150; }'
+
+    # Правила: помечаем трафик к IP из whitelist
+    ${pkgs.nftables}/bin/nft add rule inet ${nftTableName} output ip daddr @whitelist meta mark set 100
+
+    # NAT для трафика, уходящего через TUN
+    ${pkgs.nftables}/bin/nft add rule inet ${nftTableName} postrouting oifname "${cfg.interface}" masquerade
+
+    echo "[tun2socks] ✅ nftables and routing configured."
   '';
 
   shutdownScript = pkgs.writeScript "tun2socks-stop.sh" ''
     #!/bin/sh
     set +e
     echo "🧹 Cleaning up tun2socks..."
-
     ${pkgs.nftables}/bin/nft delete table inet ${nftTableName} 2>/dev/null || true
     ${pkgs.iproute2}/bin/ip rule del fwmark 100 table 100 2>/dev/null || true
     ${pkgs.iproute2}/bin/ip route flush table 100 2>/dev/null || true
     ${pkgs.iproute2}/bin/ip link delete ${cfg.interface} 2>/dev/null || true
-
     echo "✅ tun2socks stopped."
   '';
+
 in
 {
   options.services.tun2socks = {
-    enable = mkEnableOption "Enable tun2socks tunneling with nftables";
+    enable = mkEnableOption "Enable tun2socks tunneling with nftables + dnsmasq/ipset";
 
     package = mkOption {
       type = types.package;
@@ -94,19 +95,46 @@ in
   };
 
   config = mkIf cfg.enable {
+    # --- Установка необходимых пакетов ---
     environment.systemPackages = [
       cfg.package
       pkgs.nftables
       pkgs.iproute2
-      pkgs.dnsutils
+      pkgs.dnsmasq
+      pkgs.ipset
     ];
 
-    boot.kernelModules = [ "tun" ];
-    networking.nftables.enable = lib.mkDefault true;
+    # --- Загрузка модулей ядра ---
+    boot.kernelModules = [
+      "tun"
+      "ip_set"
+      "ip_set_hash_ip"
+    ];
+
+    # --- Отключаем systemd-resolved, если он мешает ---
+    services.resolved.enable = lib.mkDefault false;
+
+    # --- Настройка dnsmasq ---
+    services.dnsmasq = {
+      enable = true;
+      settings = {
+        no-resolv = true;
+        server = [ "8.8.8.8" "1.1.1.1" ];
+    
+        # генерим список строк "ipset=/domain/whitelist"
+        ipset = map (d: "/${d}/whitelist") cfg.whitelist;
+      };
+    };
+    # systemd.services.dnsmasq.serviceConfig.ExecStartPre = [
+    #   "${pkgs.ipset}/bin/ipset create whitelist hash:ip"
+    # ];
+
+
+    # --- Настройка tun2socks ---
     systemd.services.tun2socks = {
-      description = "tun2socks split-tunnel routing service (fwmark)";
+      description = "tun2socks split-tunnel routing service (fwmark + ipset)";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      after = [ "network.target" "dnsmasq.service" ];
 
       serviceConfig = {
         ExecStartPre = startupScript;
@@ -114,7 +142,6 @@ in
           ${cfg.package}/bin/tun2socks \
             -device ${cfg.interface} \
             -proxy ${cfg.proxy} \
-            -fwmark 100 \
             ${toString cfg.extraArgs}
         '';
         ExecStopPost = shutdownScript;

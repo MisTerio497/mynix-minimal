@@ -11,6 +11,7 @@
     ./nix-settings.nix
     ./steam.nix
     ./zram.nix
+    ./tlp.nix
     #./lsfg-vk.nix
     #./WM
     ./xray.nix

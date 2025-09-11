@@ -1,17 +1,19 @@
 { config, ... }:
 {
-  imports = [ ./tun2xray.nix ];
+  #imports = [ ./tun2xray.nix ];
 
-  services.tun2socks = {
-    enable = true;
-    interface = "jetbrain-tun0";
-    proxy = "socks5://127.0.0.1:10808";
-    whitelist = [
-      "download.jetbrains.com"
-      "plugins.jetbrains.com"
-      "account.jetbrains.com"
-    ];
-  };
+  # services.tun2socks = {
+  #   enable = true;
+  #   interface = "jetbrain-tun0";
+  #   proxy = "socks5://127.0.0.1:10808";
+  #   whitelist = [
+  #     "download.jetbrains.com"
+  #     "download-cdn.jetbrains.com"
+  #     # Можно добавить и другие, если нужно:
+  #     # "www.jetbrains.com"
+  #     # "account.jetbrains.com"
+  #   ];
+  # };
 
   age = {
     identityPaths = [ "/home/ivan/.age/keys.txt" ];
