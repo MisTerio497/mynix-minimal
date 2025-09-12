@@ -17,6 +17,7 @@ in
   fonts.packages = with pkgs; [
     corefonts
   ];
+  fonts.fontDir.enable = true;
   programs.java = {
     enable = true;
   };
@@ -27,7 +28,6 @@ in
     sops
     age
     mesa-demos
-    switcheroo-control
     efibootmgr
     jdk8
     agenix

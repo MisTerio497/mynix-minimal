@@ -13,7 +13,6 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     # User packages and config
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";

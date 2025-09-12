@@ -6,13 +6,6 @@
     ./hardware-configuration.nix
   ];
 
-  system.autoUpgrade = {
-    enable = true;
-    flake = "/home/ivan/mynix-minimal";
-    dates = "weekly";
-    allowReboot = false;
-    randomizedDelaySec = "30min"; # случайная задержка
-  };
   # programs.ssh = {
   #   package = pkgs.openssh; # Явное указание пакета
   #   startAgent = true; # Автозапуск ssh-agent
@@ -21,13 +14,6 @@
     enable = true;
     enableSSHSupport = true;
   };
-
-  # programs.nh = {
-  #   enable = true;
-  #   # clean.enable = true;
-  #   # clean.extraArgs = "--keep-since 4d --keep 3";
-  #   flake = "/home/ivan/mynix-minimal"; # sets NH_OS_FLAKE variable for you
-  # };
   
   hardware = {
     graphics = {

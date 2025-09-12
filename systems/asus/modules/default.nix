@@ -4,6 +4,7 @@
     ./DE
     ./virt.nix
     ./boot.nix
+    ./cloudflared.nix
     #./doas.nix
     #./minecraft-server.nix
     ./packages.nix

@@ -19,14 +19,11 @@
     identityPaths = [ "/home/ivan/.age/keys.txt" ];
     secrets.xray = {
       file = ./secrets/xray-secrets.age;
-      owner = "ivan";
-      group = "users";
-      mode = "0400";
     };
   };
 
   services.xray = {
     enable = true;
-    settingsFile = config.age.secrets.xray.path; # Key change: Use path directly
+    settingsFile = config.age.secrets.xray.path;
   };
 }

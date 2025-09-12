@@ -34,6 +34,7 @@
     prismlauncher
     qbittorrent
     krita
+    figma-linux
     libreoffice-qt6
     # jetbrains-toolbox
     jetbrains.idea-community-bin

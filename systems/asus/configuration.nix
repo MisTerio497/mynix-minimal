@@ -60,6 +60,8 @@
     extraGroups = [
       "wheel"
       "video"
+      "render"
+      "input"
       "audio"
       "pipewire"
       "networkmanager"
