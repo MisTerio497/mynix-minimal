@@ -11,7 +11,6 @@
   };
 
   environment = {
-    # Исправлено: systemPackages вместо systemPackeges
     systemPackages = with pkgs; [
       gnome-tweaks
     ];

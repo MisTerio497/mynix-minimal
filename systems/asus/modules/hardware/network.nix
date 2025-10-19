@@ -6,6 +6,10 @@
       "1.1.1.1"
       "1.0.0.1"
     ];
+    proxy = {
+      allProxy = "socks5://127.0.0.1:10808";
+      noProxy = "127.0.0.1,localhost,.local,.ru,nixos.org";
+    };
     networkmanager = {
       enable = true;
       wifi.powersave = false;
@@ -102,30 +106,34 @@
         };
       };
     };
-    wireless = {
-      enable = false;
-      networks = {
-        "RT-5GPON-4957" = {
-          psk = "4FmW9pVw";
-          priority = 100;
-        };
-        "RT-GPON-4957" = {
-          psk = "4FmW9pVw";
-        };
-        "RT-WiFi_AF2F" = {
-          psk = "cDUE4UE3";
-        };
-        "Amogus" = {
-          psk = "12345678ggawp";
-        };
-        "bliznetsy" = {
-          psk = "55557777";
-        };
-      };
-    };
+    # wireless = {
+    #   enable = false;
+    #   networks = {
+    #     "RT-5GPON-4957" = {
+    #       psk = "4FmW9pVw";
+    #       priority = 100;
+    #     };
+    #     "RT-GPON-4957" = {
+    #       psk = "4FmW9pVw";
+    #     };
+    #     "RT-WiFi_AF2F" = {
+    #       psk = "cDUE4UE3";
+    #     };
+    #     "Amogus" = {
+    #       psk = "12345678ggawp";
+    #     };
+    #     "bliznetsy" = {
+    #       psk = "55557777";
+    #     };
+    #   };
+    # };
     firewall = {
-      enable = true;
-      allowedTCPPorts = [ 80 443 ];
+      enable = false;
+      allowedTCPPorts = [
+        80
+        443
+        7844
+      ];
     };
   };
 }

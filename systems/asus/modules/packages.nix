@@ -27,9 +27,10 @@ in
     pciutils
     sops
     age
+    unrar-free
+    libsecret
     mesa-demos
     efibootmgr
-    jdk8
     agenix
     tree
     package-version-server

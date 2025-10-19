@@ -2,6 +2,7 @@
 {
   services.xserver.videoDrivers = [
     "nvidia"
+    "amdgpu"
   ];
   services.supergfxd.enable = true;
   services.supergfxd.settings = {
@@ -10,6 +11,7 @@
     hotplug_type = "None";
   };
   hardware.nvidia = {
+    forceFullCompositionPipeline = true;
     modesetting.enable = true;
     powerManagement.enable = true;
     dynamicBoost.enable = true;

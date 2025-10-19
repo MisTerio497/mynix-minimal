@@ -28,4 +28,8 @@
     partitionmanager # Optional Manage the dis
     kcolorchooser # Pick color
   ];
+  xdg.portal = {
+     enable = true;
+     extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+   };
 }

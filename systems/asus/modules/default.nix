@@ -4,17 +4,12 @@
     ./DE
     ./virt.nix
     ./boot.nix
-    ./cloudflared.nix
-    #./doas.nix
-    #./minecraft-server.nix
     ./packages.nix
     ./intern.nix
     ./nix-settings.nix
     ./steam.nix
     ./zram.nix
     ./tlp.nix
-    #./lsfg-vk.nix
-    #./WM
     ./xray.nix
   ];
 }

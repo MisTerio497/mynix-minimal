@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, username, pkgs, ... }:
 
 {
   imports = [
@@ -8,7 +8,7 @@
 
   system.autoUpgrade = {
     enable = true;
-    flake = "/home/ivan/mynix-minimal";
+    flake = "/home/${username}/mynix-minimal";
     dates = "weekly";
     allowReboot = false;
     randomizedDelaySec = "30min"; # случайная задержка
@@ -29,8 +29,9 @@
     enable = true;
     # clean.enable = true;
     # clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/home/ivan/mynix-minimal"; # sets NH_OS_FLAKE variable for you
+    flake = "/home/${username}/mynix-minimal"; # sets NH_OS_FLAKE variable for you
   };
+  
   services.power-profiles-daemon.enable = false;
   # services.auto-cpufreq.enable = true;
   programs.dconf.enable = true;
@@ -46,15 +47,30 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
   programs.fish.enable = true;
-  environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
-    XDG_SESSION_TYPE = "wayland";
-    QT_QPA_PLATFORM = "wayland";
-  };
+  # environment.sessionVariables = {
+  #   NIXOS_OZONE_WL = "1";
+  #   XDG_SESSION_TYPE = "wayland";
+  #   QT_QPA_PLATFORM = "wayland";
+  # };
+  
+  hardware = {
+      graphics = {
+        enable = true;
+        enable32Bit = true;
+        extraPackages = with pkgs; [
+          rocmPackages.clr.icd
+        ];
+      };
+      amdgpu.amdvlk = {
+        enable = true;
+        support32Bit.enable = true;
+      };
+    };
+  
   # Конфигурация пользователя (исправленная)
   users.users.ivan = {
     isNormalUser = true;
-    description = "ivan";
+    description = "Ivan_Pirat";
     uid = 1000;
     hashedPassword = "$6$GBmyYg5sZUOA2AlO$MfIpp6XDGgLsDZEBETIrxcSpgBPRfNtXgGJ3GZ3DBYQ4tspWu/DvGCQQ8H1r4YD0JxSaNbM20mlwXjbhRXv0b.";
     extraGroups = [

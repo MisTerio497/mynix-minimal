@@ -41,6 +41,7 @@ in
     #   };
     # };
   };
+  services.gnome-keyring.enable = true;
   # Дополнительно: гарантированное создание директорий
   home.activation.createXdgDirs =
     let

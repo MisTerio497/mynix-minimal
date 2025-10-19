@@ -7,7 +7,9 @@
     virt-viewer
     win-virtio
     adwaita-icon-theme
+    distrobox
   ];
+
   virtualisation = {
     podman = {
       enable = true;
@@ -15,6 +17,7 @@
       defaultNetwork.settings.dns_enabled = true;
     };
   };
+
   programs.dconf.enable = true;
 
   users.users.ivan.extraGroups = [ "libvirtd" "kvm-amd" "qemu-libvirtd"];

@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 {
   programs.zed-editor = {
-    enable = true;
+    enable = false;
     extraPackages = with pkgs; [
       alejandra
       lua-language-server
@@ -16,6 +16,7 @@
       jsonnet-language-server
       nixfmt-rfc-style
       vscode-langservers-extracted
+      python313Packages.python-lsp-server
       tailwindcss-language-server
     ];
     extensions = [
@@ -109,7 +110,7 @@
         env = { };
       };
       ui_font_size = lib.mkForce 25;
-      buffer_font_size = lib.mkForce 25;
+      buffer_font_size = lib.mkForce 14;
       # theme = lib.mkForce {
       #   mode = "system";
       #   light = "One Light";

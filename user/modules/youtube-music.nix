@@ -11,12 +11,14 @@
     options = {
       tray = true;
       language = "ru";
+      hideMenu = true;
       removeUpgradeButton = true;
       proxy = "socks5://127.0.0.1:10808";
       startingPage = "Home";
     };
     plugins = {
-      adblocker.enabled = true;
+      adblocker.enable = true;
+      downloader.enable = true;
     };
   };
 

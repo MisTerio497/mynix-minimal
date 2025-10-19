@@ -24,6 +24,7 @@
 
   home.packages = with pkgs; [
     inputs.zen-browser.packages.${pkgs.system}.default
+    inputs.winapps.packages.${pkgs.system}.winapps
     # (blender.override {
     #   cudaSupport = true;
     # })
@@ -32,21 +33,34 @@
     vlc
     unrar-free
     prismlauncher
-    qbittorrent
-    krita
     figma-linux
-    libreoffice-qt6
+    anytype
+    clang
+    cmake
+    clang-tools
+    ninja
     # jetbrains-toolbox
     jetbrains.idea-community-bin
     jetbrains.webstorm
+    jetbrains.clion
     typescript
     _64gram
-    system-config-printer
+    libreoffice-qt6
+    hunspellDicts.ru_RU
+    # fragments
+    qbittorrent
+    krita
   ];
-  xdg.autostart = {
-    enable = true;
-    entries = [
-      "${pkgs._64gram}/share/applications/io.github.tdesktop_x64.TDesktop.desktop"
-    ];
-  };
+  # ++ lib.optionals config.services.desktopManager.plasma6.enable [
+  #
+  # ]
+  # ++ lib.optionals config.services.xserver.desktopManager.gnome.enable [
+  #   
+  # ];
+  # xdg.autostart = {
+  #   enable = true;
+  #   entries = [
+  #     "${pkgs._64gram}/share/applications/io.github.tdesktop_x64.TDesktop.desktop"
+  #   ];
+  # };
 }

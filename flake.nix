@@ -30,10 +30,10 @@
     # Delete in future
     # nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     # nix-proton-cachyos.url = "github:ewtodd/nix-proton-cachyos";
-    # winapps = {
-    #   url = "github:winapps-org/winapps";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    winapps = {
+      url = "github:winapps-org/winapps";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # lsfg-vk-flake = {
     #   url = "github:pabloaul/lsfg-vk-flake/main";
     #   inputs.nixpkgs.follows = "nixpkgs";

@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, username, ... }:
 {
   #imports = [ ./tun2xray.nix ];
 
@@ -16,7 +16,7 @@
   # };
 
   age = {
-    identityPaths = [ "/home/ivan/.age/keys.txt" ];
+    identityPaths = [ "/home/${username}/.age/keys.txt" ];
     secrets.xray = {
       file = ./secrets/xray-secrets.age;
     };

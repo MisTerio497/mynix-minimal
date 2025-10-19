@@ -1,12 +1,11 @@
 { pkgs, ...}:
 {
-  security.sudo.enable = false; # Отключаем sudo
   security.doas = {
     enable = true;
     extraRules = [
       {
         users = ["ivan"];
-        groups = [ "wheel" ];
+        groups = [ "wheel" "users"];
         keepEnv = true; # Сохраняет переменные окружения (важно для NixOS)
         persist = true; # Запоминает аутентификацию на время сессии
       }
