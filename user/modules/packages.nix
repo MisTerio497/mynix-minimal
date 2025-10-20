@@ -55,7 +55,7 @@
   #
   # ]
   # ++ lib.optionals config.services.xserver.desktopManager.gnome.enable [
-  #   
+  #
   # ];
   # xdg.autostart = {
   #   enable = true;

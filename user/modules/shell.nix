@@ -6,8 +6,8 @@
       zed = "zeditor";
       cls = "clear";
       ll = "ls -la";
-      re = "nh os switch -H ${hostname}";
-      up = "nh home switch -c ${username}";
+      re = "sudo nixos-rebuild switch --flake ~/mynix-minimal#${hostname} --impure";
+      up = "home-manager switch --flake ~/mynix-minimal#${username}";
       helix = "hx";
     };
     interactiveShellInit = ''
