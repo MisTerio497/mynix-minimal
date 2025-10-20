@@ -10,6 +10,7 @@
     ./steam.nix
     ./zram.nix
     ./tlp.nix
-    ./xray.nix
+    #./xray.nix
+    ./sing-box.nix
   ];
 }

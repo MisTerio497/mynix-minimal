@@ -2,6 +2,7 @@
   imports = [
     ./packages.nix
     ./zed.nix
+    ./zen.nix
     ./git.nix
     ./home-clean.nix
     ./flatpak.nix
