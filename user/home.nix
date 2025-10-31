@@ -47,18 +47,30 @@ in
     let
       dirs = [
         "Desktop"
-        "Documents"
+        "Documents" 
         "Downloads"
         "Music"
         "Pictures"
         "Videos"
         "Templates"
         "Public"
-        "Windows"
+      ];
+      russianDirs = [
+        "Рабочий стол"
+        "Документы"
+        "Загрузки" 
+        "Музыка"
+        "Изображения"
+        "Видео"
+        "Общедоступные"
+        "Шаблоны"
       ];
     in
     lib.hm.dag.entryAfter [ "writeBoundary" ] (
-      builtins.concatStringsSep "\n" (map (dir: "mkdir -p ${dir}") dirs)
+      builtins.concatStringsSep "\n" (
+        (map (dir: "mkdir -p ${dir}") dirs) ++
+        (map (dir: "rm -rf ${dir}") russianDirs)
+      )
     );
 
   programs.home-manager.enable = true;

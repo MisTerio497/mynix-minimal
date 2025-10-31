@@ -6,10 +6,10 @@
       "1.1.1.1"
       "1.0.0.1"
     ];
-    proxy = {
-      allProxy = "socks5://127.0.0.1:10808";
-      noProxy = "127.0.0.1,localhost,.local,.ru,nixos.org";
-    };
+    # proxy = {
+    #   allProxy = "socks5://127.0.0.1:10808";
+    #   noProxy = "127.0.0.1,localhost,.local,.ru,nixos.org";
+    # };
     networkmanager = {
       enable = true;
       wifi.powersave = false;

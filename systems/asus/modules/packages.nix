@@ -14,10 +14,7 @@ in
     inputs.nix-flatpak.nixosModules.nix-flatpak
   ];
   nixpkgs.config.allowUnfree = true;
-  fonts.packages = with pkgs; [
-    corefonts
-  ];
-  fonts.fontDir.enable = true;
+  
   programs.java = {
     enable = true;
   };
@@ -25,7 +22,6 @@ in
   services.hardware.openrgb.enable = true;
   environment.systemPackages = with pkgs; [
     pciutils
-    sops
     age
     unrar-free
     libsecret

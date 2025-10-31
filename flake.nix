@@ -2,7 +2,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     # sops-nix = {
     #   url = "github:Mic92/sops-nix";
@@ -18,14 +17,14 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    stylix = {
-      url = "github:nix-community/stylix/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # lanzaboote = {
+    #   url = "github:nix-community/lanzaboote/v0.4.2";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    # stylix = {
+    #   url = "github:nix-community/stylix/release-25.05";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     # Delete in future
     # nix-minecraft.url = "github:Infinidoge/nix-minecraft";
@@ -55,6 +54,7 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zed.url = "github:zed-industries/zed";
     # Utilities
     flake-programs-sqlite = {
       url = "github:wamserma/flake-programs-sqlite";
@@ -66,13 +66,12 @@
     {
       nixpkgs,
       nixpkgs-unstable,
-      nixos-hardware,
       home-manager,
       disko,
       nix-flatpak,
       flake-programs-sqlite,
       agenix,
-      stylix,
+      # stylix,
       ...
     }@inputs:
     let
@@ -126,7 +125,6 @@
         inherit pkgs;
         extraSpecialArgs = specialArgs;
         modules = [
-          stylix.homeModules.stylix
           nix-flatpak.homeManagerModules.nix-flatpak
           ./user/home.nix
         ];

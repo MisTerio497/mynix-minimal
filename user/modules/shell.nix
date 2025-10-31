@@ -6,7 +6,7 @@
       zed = "zeditor";
       cls = "clear";
       ll = "ls -la";
-      re = "sudo nixos-rebuild switch --flake ~/mynix-minimal#${hostname} --impure";
+      re = "sudo nixos-rebuild switch --flake ~/mynix-minimal#${hostname}";
       up = "home-manager switch --flake ~/mynix-minimal#${username}";
       helix = "hx";
     };

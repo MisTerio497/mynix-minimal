@@ -1,15 +1,10 @@
 # sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount disko.nix
 {
-  lib,
-  disks ? [ "/dev/nvme0n1" ],
-  ...
-}:
-{
   disko.devices = {
     disk = {
       nvme = {
         type = "disk";
-        device = builtins.elemAt disks 0;
+        device = "/dev/nvme0n1";
         content = {
           type = "gpt";
           partitions = {
@@ -19,7 +14,6 @@
               content = {
                 type = "filesystem";
                 format = "ntfs";
-                mountpoint = "/home/ivan/Windows";
               };
             };
             boot = {
@@ -66,3 +60,129 @@
     };
   };
 }
+# disko.nix
+# { lib, pkgs, ... }:
+
+# {
+#   disk = {
+#     main = {
+#       type = "disk";
+#       device = "/dev/sda"; # или /dev/nvme0n1 для NVMe
+#       content = {
+#         type = "gpt";
+#         partitions = {
+#           boot = {
+#             name = "boot";
+#             size = "1M";
+#             type = "EF02"; # GRUB boot partition
+#           };
+#           ESP = {
+#             name = "ESP";
+#             size = "512M";
+#             type = "EF00";
+#             content = {
+#               type = "filesystem";
+#               format = "vfat";
+#               mountpoint = "/boot";
+#               mountOptions = [
+#                 "umask=0077"
+#               ];
+#             };
+#           };
+#           main = {
+#             name = "main";
+#             size = "100%";
+#             content = {
+#               type = "btrfs";
+#               extraArgs = [ "-f" ];
+#               # Опции файловой системы
+#               extraFormatArgs = [
+#                 "--label=main"
+#               ];
+#               # Монтирование с опциями
+#               mountOptions = [
+#                 "defaults"
+#                 "noatime"
+#                 "compress=zstd"
+#                 "ssd" # если SSD диск
+#                 "autodefrag"
+#               ];
+              
+#               subvolumes = {
+#                 # Корневой subvolume (не монтируется напрямую)
+#                 "@" = {
+#                   mountpoint = null; # не монтировать
+#                 };
+                
+#                 # Root subvolume
+#                 "@root" = {
+#                   mountpoint = "/";
+#                   mountOptions = [
+#                     "subvol=@root"
+#                     "noatime"
+#                     "compress=zstd"
+#                     "ssd"
+#                   ];
+#                 };
+                
+#                 # Home subvolume
+#                 "@home" = {
+#                   mountpoint = "/home";
+#                   mountOptions = [
+#                     "subvol=@home"
+#                     "noatime"
+#                     "compress=zstd"
+#                     "ssd"
+#                   ];
+#                 };
+                
+#                 # Nix store subvolume
+#                 "@nix" = {
+#                   mountpoint = "/nix";
+#                   mountOptions = [
+#                     "subvol=@nix"
+#                     "noatime"
+#                     "compress=zstd"
+#                     "ssd"
+#                     "noautodefrag" # отключить дефрагментацию для nix store
+#                   ];
+#                 };
+                
+#                 # Logs subvolume
+#                 "@var_log" = {
+#                   mountpoint = "/var/log";
+#                   mountOptions = [
+#                     "subvol=@var_log"
+#                     "noatime"
+#                     "compress=zstd"
+#                   ];
+#                 };
+                
+#                 # Cache subvolume
+#                 "@var_cache" = {
+#                   mountpoint = "/var/cache";
+#                   mountOptions = [
+#                     "subvol=@var_cache"
+#                     "noatime"
+#                     "compress=zstd"
+#                   ];
+#                 };
+                
+#                 # Temporary files
+#                 "@tmp" = {
+#                   mountpoint = "/tmp";
+#                   mountOptions = [
+#                     "subvol=@tmp"
+#                     "noatime"
+#                     "nodatacow"
+#                     "nodatasum"
+#                   ];
+#                 };
+#               };
+#             };
+#           };
+#         };
+#       };
+#     };
+#   };
+# }

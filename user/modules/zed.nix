@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, inputs, ... }:
 
 let
   zedBaseSettings = {
@@ -104,7 +104,7 @@ in
   nixGL.vulkan.enable = true;
   programs.zed-editor = {
     enable = true;
-
+    # package = inputs.zed.packages.${pkgs.system}.default;
     extraPackages = with pkgs; [
       alejandra
       basedpyright
@@ -123,6 +123,53 @@ in
       tailwindcss-language-server
     ];
   };
+  # home.file.".config/zed/keymap.json".text = ''
+  #     [
+  #       {
+  #         "context": "Editor",
+  #         "bindings": {
+  #           // === Базовые операции ===
+  #           "ctrl-c": "core::Copy",
+  #           "ctrl-с": "core::Copy",
+  
+  #           "ctrl-v": "core::Paste",
+  #           "ctrl-м": "core::Paste",
+  
+  #           "ctrl-x": "core::Cut",
+  #           "ctrl-ч": "core::Cut",
+  
+  #           "ctrl-z": "core::Undo",
+  #           "ctrl-я": "core::Undo",
+  
+  #           "ctrl-shift-z": "core::Redo",
+  #           "ctrl-shift-я": "core::Redo",
+  
+  #           "ctrl-s": "core::Save",
+  #           "ctrl-ы": "core::Save",
+  
+  #           "ctrl-a": "core::SelectAll",
+  #           "ctrl-ф": "core::SelectAll",
+  
+  #           "ctrl-f": "editor::Find",
+  #           "ctrl-а": "editor::Find",
+  
+  #           "ctrl-h": "editor::Replace",
+  #           "ctrl-р": "editor::Replace",
+  
+  #           // === Комментирование ===
+  #           "ctrl-/": "editor::ToggleLineComment",
+  #           "ctrl-ю": "editor::ToggleLineComment",
+  
+  #           // === Навигация ===
+  #           "ctrl-g": "editor::GoToLine",
+  #           "ctrl-г": "editor::GoToLine",
+  
+  #           "ctrl-f3": "editor::FindNext",
+  #           "ctrl-shift-f3": "editor::FindPrevious"
+  #         }
+  #       }
+  #     ]
+  #   '';
   home.activation.mergeZedSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p ~/.config/zed
     if [ -f ~/.config/zed/settings.json ]; then

@@ -16,7 +16,7 @@
 
   # Оптимизация ядра
   boot.kernel.sysctl = {
-    "vm.swappiness" = 120; # Чаще использует ZRAM, реже — Swap
+    # "vm.swappiness" = 120; # Чаще использует ZRAM, реже — Swap
     "vm.vfs_cache_pressure" = 50; # Меньше агрессии к кешу файловой системы
   };
 
