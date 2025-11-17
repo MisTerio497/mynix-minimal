@@ -40,12 +40,13 @@
     unrar-free
     prismlauncher
     figma-linux
-    anytype
     clang
     cmake
     clang-tools
     ninja
     zoom-us
+    handbrake
+
     # jetbrains-toolbox
     jetbrains.idea-community-bin
     jetbrains.webstorm

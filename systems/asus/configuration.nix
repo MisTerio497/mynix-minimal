@@ -2,6 +2,8 @@
   config,
   username,
   pkgs,
+  lib,
+  inputs,
   ...
 }:
 
@@ -9,8 +11,10 @@
   imports = [
     ./modules
     ./hardware-configuration.nix
+    inputs.nixos-facter-modules.nixosModules.facter
   ];
-
+  
+  facter.reportPath = ./facter.json;
   system.autoUpgrade = {
     enable = true;
     flake = "/home/${username}/mynix-minimal";
@@ -37,32 +41,10 @@
       user = "ivan";
     }
   ];
-  # systemd.services.autossh-tunnel = {
-  #   description = "AutoSSH tunnel with SOCKS and port forwarding";
-  #   after = [ "network.target" ];
-  #   wantedBy = [ "multi-user.target" ];
-    
-  #   serviceConfig = {
-  #     Type = "simple";
-  #     User = "ivan";  # Замените на ваше имя пользователя
-  #     Group = "users";
-  #     ExecStart = "${pkgs.autossh}/bin/autossh -M 0 -N -D 10808 -L 33399:localhost:33399 root@91.184.240.220";
-  #     Restart = "always";
-  #     RestartSec = 5;
-  #     # Дополнительные настройки для лучшей стабильности
-  #     Environment = [
-  #       "AUTOSSH_GATETIME=0"
-  #       "AUTOSSH_POLL=10"
-  #     ];
-  #   };
-  # };
-  # programs.nh = {
-  #   enable = true;
-  #   # clean.enable = true;
-  #   # clean.extraArgs = "--keep-since 4d --keep 3";
-  #   flake = "/home/${username}/mynix-minimal"; # sets NH_OS_FLAKE variable for you
-  # };
-
+  services.gnome.gnome-keyring.enable = true;
+  services.fwupd = {
+    enable = true;
+  };
   services.power-profiles-daemon.enable = false;
   # services.auto-cpufreq.enable = true;
   programs.dconf.enable = true;

@@ -1,9 +1,9 @@
-{ pkgs, ...}:
+{ inputs, pkgs, ...}:
 {
   fonts.packages = with pkgs; [
-    darwin.apple_sf_compact
-    darwin.apple_sf_mono
-    darwin.apple_sf_pro
+    inputs.apple-fonts.packages.${pkgs.system}.sf-pro
+    inputs.apple-fonts.packages.${pkgs.system}.sf-mono
+    inputs.apple-fonts.packages.${pkgs.system}.sf-compact
 
     # Или другие шрифты с поддержкой символов Apple
     noto-fonts

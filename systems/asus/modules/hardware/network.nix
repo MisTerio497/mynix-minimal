@@ -13,6 +13,7 @@
     networkmanager = {
       enable = true;
       wifi.powersave = false;
+      
       ensureProfiles.profiles = {
         RT-5GPON-4957 = {
           connection = {
@@ -127,13 +128,5 @@
     #     };
     #   };
     # };
-    firewall = {
-      enable = false;
-      allowedTCPPorts = [
-        80
-        443
-        7844
-      ];
-    };
   };
 }

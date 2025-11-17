@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 
 let
   username = "ivan";
@@ -72,6 +72,16 @@ in
         (map (dir: "rm -rf ${dir}") russianDirs)
       )
     );
-
+    gtk = {
+        enable = true;
+        theme = {
+          name = "Breeze-Dark"; # или "Breeze"
+          package = pkgs.kdePackages.breeze-gtk;
+        };
+        iconTheme = {
+          name = "breeze";
+          package = pkgs.kdePackages.breeze-icons;
+        };
+      };
   programs.home-manager.enable = true;
 }
