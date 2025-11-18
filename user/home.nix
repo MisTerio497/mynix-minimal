@@ -12,7 +12,11 @@ in
 
   home = {
     inherit username homeDirectory;
-    stateVersion = "25.05"; # Рекомендуется указывать актуальную версию
+    stateVersion = "25.05";
+  };
+  
+  home.sessionVariables = {
+    XCURSOR_SIZE=30;
   };
 
   xdg = {
@@ -72,6 +76,7 @@ in
         (map (dir: "rm -rf ${dir}") russianDirs)
       )
     );
+
     gtk = {
         enable = true;
         theme = {

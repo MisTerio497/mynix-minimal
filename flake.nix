@@ -51,9 +51,9 @@
       ...
     }@inputs:
     let
-      system = "x86_64-linux";
       username = "ivan";
       hostname = "asus";
+      system = "x86_64-linux";
 
       # Создаем pkgs с поддержкой overlays
       pkgs = nixpkgs.legacyPackages.${system};
@@ -62,15 +62,15 @@
       specialArgs = {
         inherit
           inputs
+          pkgs-unstable
           username
           hostname
-          pkgs-unstable
           ;
       };
     in
     {
       nixosConfigurations = {
-        ${hostname} = lib.nixosSystem {
+        asus = lib.nixosSystem {
           inherit system;
           specialArgs = specialArgs;
           modules = [
@@ -94,7 +94,7 @@
         };
       };
 
-      homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.ivan = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = specialArgs;
         modules = [
