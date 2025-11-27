@@ -1,4 +1,7 @@
-{ username, hostname, ...}:
+{ username, hostname, ... }:
+let
+  deploy = "sh /home/${username}/mynix-minimal/deploy.sh";
+in
 {
   programs.fish = {
     enable = true;
@@ -6,7 +9,7 @@
       zed = "zeditor";
       cls = "clear";
       ll = "ls -la";
-      re = "sudo nixos-rebuild switch --flake ~/mynix-minimal#${hostname}";
+      re = "sudo nixos-rebuild switch --flake ~/mynix-minimal#${hostname} && ${deploy}";
       up = "home-manager switch --flake ~/mynix-minimal#${username}";
       helix = "hx";
     };
