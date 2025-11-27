@@ -34,13 +34,23 @@
     enable = true;
     binfmt = true;
   };
-  services.autossh.sessions = [
-    {
-      extraArguments = "-N -D 10808 -L 33399:localhost:33399 root@91.184.240.220";
-      name = "socks-peer";
-      user = "ivan";
-    }
-  ];
+  # services.autossh.sessions = [
+  #   {
+  #     extraArguments = "-N -D 10808 -L 33399:localhost:33399 root@91.184.240.220";
+  #     name = "socks-peer";
+  #     user = "ivan";
+  #   }
+  # ];
+  
+  # security.pam.services= {
+  #   login = {
+  #     enableGnomeKeyring = true;
+  #     kwallet.enable = true;
+  #   };
+  #   passwd = {
+  #     enableGnomeKeyring = true;
+  #   };
+  # };
   services.gnome.gnome-keyring.enable = true;
   services.fwupd = {
     enable = true;
@@ -74,8 +84,6 @@
     NIXOS_OZONE_WL = "1";
     XDG_SESSION_TYPE = "wayland";
     QT_QPA_PLATFORM = "wayland";
-    XCURSOR_THEME = "Breeze";
-    XCURSOR_SIZE = "24";
   };
 
   hardware = {

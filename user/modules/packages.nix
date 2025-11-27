@@ -46,6 +46,7 @@
     ninja
     zoom-us
     handbrake
+    gnome-keyring
 
     # jetbrains-toolbox
     jetbrains.idea-community-bin

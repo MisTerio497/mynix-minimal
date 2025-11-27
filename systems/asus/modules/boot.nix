@@ -9,7 +9,7 @@
     #./secureboot.nix
   ];
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_zen;
     loader = {
       systemd-boot = {
         enable = true;
@@ -44,11 +44,6 @@
       "exfat"
       "vfat"
     ];
-    initrd = {
-      enable = true;
-      verbose = false;
-      systemd.enable = true;
-    };
     consoleLogLevel = 3;
   };
 }

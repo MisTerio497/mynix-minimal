@@ -1,17 +1,27 @@
-{ lib, stdenv, fetchFromGitHub, cmake, sfml_2, ninja }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  sfml_2,
+  ninja,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tgui";
-  version = "1.9.0"; # Укажите нужную версию
+  version = "1.9.0";
 
   src = fetchFromGitHub {
     owner = "texus";
     repo = "TGUI";
     rev = "v${version}";
-    sha256 = "sha256-ytd6IJIJ3nZv7uqweHH2WiTMoXu8Lb2IShySLWUr1tM="; # Замените на реальный хеш
+    sha256 = "sha256-ytd6IJIJ3nZv7uqweHH2WiTMoXu8Lb2IShySLWUr1tM=";
   };
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ];
   buildInputs = [ sfml_2 ];
 
   cmakeFlags = [
@@ -21,8 +31,7 @@ stdenv.mkDerivation rec {
     "-DTGUI_BUILD_GUI_BUILDER=OFF"
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    "-DCMAKE_INSTALL_FULL_LIBDIR=${placeholder "out"}/lib"
-    "-DCMAKE_INSTALL_FULL_INCLUDEDIR=${placeholder "out"}/include"
+    "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}"
   ];
 
   meta = with lib; {

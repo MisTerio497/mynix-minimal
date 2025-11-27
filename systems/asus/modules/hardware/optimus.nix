@@ -15,7 +15,7 @@
     modesetting.enable = true;
     powerManagement.enable = true;
     dynamicBoost.enable = true;
-    open = false;
+    open = true;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };

@@ -10,11 +10,6 @@
           partitions = {
             windows = {
               size = "300G";
-              type = "0700"; # NTFS
-              content = {
-                type = "filesystem";
-                format = "ntfs";
-              };
             };
             boot = {
               size = "500M";
@@ -72,23 +67,19 @@
 #         type = "gpt";
 #         partitions = {
 #           boot = {
-#             name = "boot";
-#             size = "1M";
-#             type = "EF02"; # GRUB boot partition
-#           };
-#           ESP = {
-#             name = "ESP";
-#             size = "512M";
-#             type = "EF00";
-#             content = {
-#               type = "filesystem";
-#               format = "vfat";
-#               mountpoint = "/boot";
-#               mountOptions = [
-#                 "umask=0077"
-#               ];
-#             };
-#           };
+            #   size = "500M";
+            #   type = "EF00";
+            #   content = {
+            #     type = "filesystem";
+            #     format = "vfat";
+            #     #mountpoint = "/boot/efi";
+            #     mountpoint = "/boot";
+            #     mountOptions = [
+            #       "fmask=0077"
+            #       "dmask=0077"
+            #     ];
+            #   };
+            # };
 #           main = {
 #             name = "main";
 #             size = "100%";
