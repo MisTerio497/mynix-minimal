@@ -18,6 +18,11 @@ in
   home.sessionVariables = {
     XCURSOR_SIZE=30;
   };
+  
+  nixpkgs.overlays = [
+    (import ./overlays)
+  ]
+  ;
 
   xdg = {
     userDirs = {

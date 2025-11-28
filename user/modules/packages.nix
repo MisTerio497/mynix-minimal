@@ -36,6 +36,7 @@
     #     XCURSOR_SIZE = "24";
     #   };
     # })
+    # 
     vlc
     unrar-free
     prismlauncher
@@ -54,8 +55,11 @@
     jetbrains.clion
     typescript
     _64gram
+    
     libreoffice-qt6
     hunspellDicts.ru_RU
+    hunspell
+    
     # fragments
     qbittorrent
     krita
