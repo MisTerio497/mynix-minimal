@@ -81,11 +81,11 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
   programs.fish.enable = true;
-  environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
-    XDG_SESSION_TYPE = "wayland";
-    QT_QPA_PLATFORM = "wayland";
-  };
+  # environment.sessionVariables = {
+  #   NIXOS_OZONE_WL = "1";
+  #   XDG_SESSION_TYPE = "wayland";
+  #   QT_QPA_PLATFORM = "wayland";
+  # };
 
   hardware = {
     graphics = {

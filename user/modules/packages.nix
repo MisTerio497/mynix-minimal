@@ -6,6 +6,7 @@
 }:
 {
   fonts.fontconfig.enable = true;
+  nixpkgs.config.allowUnfree = true;
   programs = {
     # mpv.enable = true;
     chromium.enable = true;
@@ -49,8 +50,8 @@
 
     # jetbrains-toolbox
     # jetbrains.idea-community-bin
-    jetbrains.webstorm
-    jetbrains.clion
+    # jetbrains.webstorm
+    # jetbrains.clion
     typescript
     _64gram
     

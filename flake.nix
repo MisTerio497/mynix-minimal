@@ -57,8 +57,10 @@
       system = "x86_64-linux";
 
       # Создаем pkgs с поддержкой overlays
-      pkgs = nixpkgs.legacyPackages.${system};
-      # pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [ ];
+      };
       lib = nixpkgs.lib;
       specialArgs = {
         inherit
@@ -86,7 +88,7 @@
         };
 
         homelab = lib.nixosSystem {
-          inherit system;
+          inherit system pkgs;
           specialArgs = { inherit inputs; };
           modules = [
             flake-programs-sqlite.nixosModules.programs-sqlite

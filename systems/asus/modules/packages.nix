@@ -14,10 +14,7 @@ in
     inputs.nix-flatpak.nixosModules.nix-flatpak
   ];
   nixpkgs.config.allowUnfree = true;
-  
-  programs.java = {
-    enable = true;
-  };
+
   programs.amnezia-vpn.enable = true;
   services.hardware.openrgb.enable = true;
   environment.systemPackages = with pkgs; [
@@ -29,6 +26,7 @@ in
     efibootmgr
     agenix
     tree
+    nixG
     package-version-server
     git
     openssl

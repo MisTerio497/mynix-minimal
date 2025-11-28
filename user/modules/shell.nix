@@ -1,4 +1,9 @@
-{ username, hostname, pkgs, ... }:
+{
+  username,
+  hostname,
+  pkgs,
+  ...
+}:
 let
   deploy = "sh /home/${username}/mynix-minimal/deploy.sh";
 in
@@ -15,7 +20,6 @@ in
     };
     interactiveShellInit = ''
       set -U fish_greeting ""
-      source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
     '';
   };
 }
