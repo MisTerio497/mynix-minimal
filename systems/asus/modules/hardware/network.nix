@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 {
   networking = {
     hostName = "nixos";
@@ -6,10 +6,10 @@
       "1.1.1.1"
       "1.0.0.1"
     ];
-    # proxy = {
-    #   allProxy = "socks5://127.0.0.1:10808";
-    #   noProxy = "127.0.0.1,localhost,.local,.ru,nixos.org,cachix.org";
-    # };
+    proxy = {
+      allProxy = if config.services.sing-box.enable then "socks5://127.0.0.1:10808" else "";
+      noProxy = "127.0.0.1,localhost,.local,.ru,nixos.org,cachix.org";
+    };
     networkmanager = {
       enable = true;
       wifi.powersave = false;

@@ -4,6 +4,7 @@
   pkgs,
   lib,
   inputs,
+  programs-sqlite-db,
   ...
 }:
 
@@ -117,6 +118,8 @@
   programs.adb.enable = true;
   # Install firefox.
   programs.firefox.enable = true;
+  programs.command-not-found.enable = true;
+  programs.command-not-found.dbPath = programs-sqlite-db;
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11";
 }

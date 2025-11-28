@@ -5,26 +5,25 @@
   ...
 }:
 {
-  nixpkgs.config.allowUnfree = true;
   fonts.fontconfig.enable = true;
   programs = {
-    mpv.enable = true;
+    # mpv.enable = true;
     chromium.enable = true;
-    direnv.enable = true;
-    obs-studio = {
-      enable = true;
-      plugins = with pkgs.obs-studio-plugins; [
-        wlrobs
-        obs-vkcapture
-        obs-pipewire-audio-capture
-        obs-vaapi
-      ];
-    };
+    # direnv.enable = true;
+    # obs-studio = {
+    #   enable = true;
+    #   plugins = with pkgs.obs-studio-plugins; [
+    #     wlrobs
+    #     obs-vkcapture
+    #     obs-pipewire-audio-capture
+    #     obs-vaapi
+    #   ];
+    # };
   };
 
   home.packages = with pkgs; [
     # inputs.zen-browser.packages.${pkgs.system}.default
-    inputs.winapps.packages.${pkgs.system}.winapps
+    # inputs.winapps.packages.${pkgs.system}.winapps
     # (blender.override {
     #   cudaSupport = true;
     # })
@@ -47,7 +46,6 @@
     ninja
     # zoom-us
     handbrake
-    gnome-keyring
 
     # jetbrains-toolbox
     # jetbrains.idea-community-bin

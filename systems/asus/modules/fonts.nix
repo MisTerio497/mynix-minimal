@@ -1,13 +1,13 @@
 { inputs, pkgs, ...}:
 {
   fonts.packages = with pkgs; [
-    inputs.apple-fonts.packages.${pkgs.system}.sf-pro
-    inputs.apple-fonts.packages.${pkgs.system}.sf-mono
-    inputs.apple-fonts.packages.${pkgs.system}.sf-compact
+    # inputs.apple-fonts.packages.${pkgs.system}.sf-pro
+    # inputs.apple-fonts.packages.${pkgs.system}.sf-mono
+    # inputs.apple-fonts.packages.${pkgs.system}.sf-compact
 
     # Или другие шрифты с поддержкой символов Apple
     noto-fonts
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     dejavu_fonts
 
     # Шрифты с хорошей поддержкой Unicode

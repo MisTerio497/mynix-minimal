@@ -1,6 +1,6 @@
 {
   nix = {
-    channel.enable = true;
+    channel.enable = false;
     gc = {
       automatic = true;
       dates = "weekly"; # Очистка раз в неделю

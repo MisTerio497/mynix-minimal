@@ -13,25 +13,25 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    apple-fonts = {
-      url= "github:Lyndeno/apple-fonts.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # apple-fonts = {
+    #   url= "github:Lyndeno/apple-fonts.nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     # User packages and config
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak";
-    winapps = {
-      url = "github:winapps-org/winapps";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # winapps = {
+    #   url = "github:winapps-org/winapps";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    zed.url = "github:zed-industries/zed";
+    # zed.url = "github:zed-industries/zed";
     # Utilities
     flake-programs-sqlite = {
       url = "github:wamserma/flake-programs-sqlite";
@@ -51,6 +51,7 @@
       ...
     }@inputs:
     let
+      programs-sqlite-db = flake-programs-sqlite.packages.${system}.programs-sqlite;
       username = "ivan";
       hostname = "asus";
       system = "x86_64-linux";
@@ -62,6 +63,7 @@
       specialArgs = {
         inherit
           inputs
+          programs-sqlite-db
           # pkgs-unstable
           username
           hostname

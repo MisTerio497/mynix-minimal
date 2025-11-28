@@ -13,8 +13,8 @@
   hardware.nvidia = {
     forceFullCompositionPipeline = true;
     modesetting.enable = true;
-    powerManagement.enable = true;
-    dynamicBoost.enable = true;
+    powerManagement.enable = false;
+    dynamicBoost.enable = false;
     open = true;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;

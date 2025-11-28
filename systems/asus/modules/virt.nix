@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, usermane, ... }:
 {
   virtualisation.containers.enable = true;
   environment.systemPackages = with pkgs; [
@@ -20,7 +20,7 @@
 
   programs.dconf.enable = true;
 
-  users.users.ivan.extraGroups = [ "libvirtd" "kvm-amd" "qemu-libvirtd"];
+  users.users.${usermane}.extraGroups = [ "libvirtd" "kvm-amd" "qemu-libvirtd"];
 
   virtualisation = {
     libvirtd = {
@@ -34,9 +34,9 @@
     spiceUSBRedirection.enable = true;
   };
   services.spice-vdagentd.enable = true;
-  systemd.services.libvirtd.postStart = ''
-    sleep 1  # Дать libvirtd время на инициализацию
-    sudo -u root virsh net-start default || true
-    sudo -u root virsh net-autostart default || true
-  '';
+  # systemd.services.libvirtd.postStart = ''
+  #   sleep 1  # Дать libvirtd время на инициализацию
+  #   sudo -u root virsh net-start default || true
+  #   sudo -u root virsh net-autostart default || true
+  # '';
 }
