@@ -12,6 +12,6 @@
     ./zram.nix
     ./tlp.nix
     #./xray.nix
-    #./sing-box.nix
+    ./sing-box.nix
   ];
 }
