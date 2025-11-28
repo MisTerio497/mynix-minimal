@@ -1,5 +1,9 @@
 { config, username, ... }:
 {
+  imports = [
+    ./sing-box-new.nix
+  ];
+  
   age = {
     identityPaths = [ "/home/${username}/.age/keys.txt" ];
     secrets = {
@@ -10,6 +14,6 @@
   };
   services.sing-box = {
     enable = true;
-    settings = builtins.fromJSON (builtins.readFile (config.age.secrets.sing-box.path));
+    settingsFile = config.age.secrets.sing-box.path;
   };
 }

@@ -12,7 +12,7 @@ in
 
   home = {
     inherit username homeDirectory;
-    stateVersion = "25.05";
+    stateVersion = "25.11";
   };
   
   home.sessionVariables = {
@@ -20,7 +20,7 @@ in
   };
   
   nixpkgs.overlays = [
-    (import ./overlays)
+    (import ./overlays/prism-launcher.nix)
   ]
   ;
 
@@ -50,7 +50,6 @@ in
     #   };
     # };
   };
-  services.gnome-keyring.enable = true;
   # Дополнительно: гарантированное создание директорий
   home.activation.createXdgDirs =
     let

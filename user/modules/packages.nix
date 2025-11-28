@@ -45,12 +45,12 @@
     cmake
     clang-tools
     ninja
-    zoom-us
+    # zoom-us
     handbrake
     gnome-keyring
 
     # jetbrains-toolbox
-    jetbrains.idea-community-bin
+    # jetbrains.idea-community-bin
     jetbrains.webstorm
     jetbrains.clion
     typescript

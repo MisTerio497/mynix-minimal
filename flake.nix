@@ -1,7 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    # nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-facter-modules.url = "github:nix-community/nixos-facter-modules";
     disko = {
       url = "github:nix-community/disko/latest";
@@ -19,7 +19,7 @@
     };
     # User packages and config
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak";
@@ -42,7 +42,7 @@
   outputs =
     {
       nixpkgs,
-      nixpkgs-unstable,
+      # nixpkgs-unstable,
       home-manager,
       disko,
       nix-flatpak,
@@ -57,12 +57,12 @@
 
       # Создаем pkgs с поддержкой overlays
       pkgs = nixpkgs.legacyPackages.${system};
-      pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+      # pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
       lib = nixpkgs.lib;
       specialArgs = {
         inherit
           inputs
-          pkgs-unstable
+          # pkgs-unstable
           username
           hostname
           ;

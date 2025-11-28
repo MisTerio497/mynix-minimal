@@ -1,9 +1,9 @@
 final: prev: {
-  prismlauncher = final.prismlauncher.override {
+  prismlauncher = prev.prismlauncher.override {
     additionalPrograms = [ prev.ffmpeg ];
 
     jdks = with prev; [
-      graalvm-ce
+      graalvmPackages.graalvm-ce
       zulu8
       zulu17
       zulu

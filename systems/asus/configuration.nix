@@ -94,10 +94,6 @@
         rocmPackages.clr.icd
       ];
     };
-    amdgpu.amdvlk = {
-      enable = true;
-      support32Bit.enable = true;
-    };
   };
 
   users.users.ivan = {
@@ -122,5 +118,5 @@
   # Install firefox.
   programs.firefox.enable = true;
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }
