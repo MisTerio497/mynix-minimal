@@ -5,7 +5,7 @@ set -euo pipefail
 CONFIG_DIR="/mnt/etc/nixos"
 echo "Копируем конфигурацию в $CONFIG_DIR..."
 mkdir -p "$CONFIG_DIR"
-cp -r . "$CONFIG_DIR"
+cp -r "systems/mininal/*" "$CONFIG_DIR"
 
 # Генерация hardware-configuration.nix
 echo "Генерируем hardware-configuration.nix..."
@@ -13,7 +13,7 @@ nixos-generate-config --show-hardware-config --no-filesystems > "$CONFIG_DIR/sys
 
 # Установка системы
 echo "Начинаем установку NixOS..."
-nixos-install --flake "$CONFIG_DIR#nixos" --root /mnt --no-root-passwd
+nixos-install --flake "$CONFIG_DIR#mininal" --root /mnt --no-root-passwd
 sudo rm -r /mnt/root/.nix-defexpr/channels /mnt/nix/var/nix/profiles/per-user/root/channels
 
 
