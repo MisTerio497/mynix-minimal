@@ -13,7 +13,6 @@ in
   imports = [
     inputs.nix-flatpak.nixosModules.nix-flatpak
   ];
-  nixpkgs.config.allowUnfree = true;
 
   programs.amnezia-vpn.enable = true;
   services.hardware.openrgb.enable = true;
@@ -26,7 +25,6 @@ in
     efibootmgr
     agenix
     tree
-    nixG
     package-version-server
     git
     openssl

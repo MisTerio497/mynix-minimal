@@ -9,7 +9,6 @@
     #./secureboot.nix
   ];
   boot = {
-    kernelPackages = pkgs.linuxPackages_zen;
     loader = {
       systemd-boot = {
         enable = true;
@@ -40,7 +39,7 @@
     # ];
     supportedFilesystems = [
       "ntfs"
-      "ext4"
+      "btrfs"
       "exfat"
       "vfat"
     ];

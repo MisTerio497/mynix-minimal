@@ -42,7 +42,6 @@
   outputs =
     {
       nixpkgs,
-      # nixpkgs-unstable,
       home-manager,
       disko,
       nix-flatpak,
@@ -56,17 +55,18 @@
       hostname = "asus";
       system = "x86_64-linux";
 
-      # Создаем pkgs с поддержкой overlays
       pkgs = import nixpkgs {
         inherit system;
+        config.allowUnfree = true;
         overlays = [ ];
       };
+      
       lib = nixpkgs.lib;
+      
       specialArgs = {
         inherit
           inputs
           programs-sqlite-db
-          # pkgs-unstable
           username
           hostname
           ;
@@ -75,7 +75,7 @@
     {
       nixosConfigurations = {
         asus = lib.nixosSystem {
-          inherit system;
+          inherit system pkgs;
           specialArgs = specialArgs;
           modules = [
             home-manager.nixosModules.home-manager
@@ -94,6 +94,16 @@
             flake-programs-sqlite.nixosModules.programs-sqlite
             agenix.nixosModules.default
             ./systems/homelab/configuration.nix
+          ];
+        };
+
+        minimal = lib.nixosSystem {
+          inherit system pkgs;
+          specialArgs = specialArgs;
+          modules = [
+            disko.nixosModules.disko
+            flake-programs-sqlite.nixosModules.programs-sqlite
+            ./systems/minimal/configuration.nix
           ];
         };
       };

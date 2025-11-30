@@ -1,9 +1,5 @@
 {
-  config,
-  username,
   pkgs,
-  lib,
-  inputs,
   programs-sqlite-db,
   ...
 }:
@@ -13,25 +9,9 @@
     ./modules
     ./hardware-configuration.nix
   ];
-
-  system.autoUpgrade = {
-    enable = true;
-    flake = "/home/${username}/mynix-minimal";
-    dates = "weekly";
-    allowReboot = false;
-    randomizedDelaySec = "30min"; # случайная задержка
-  };
-  # programs.ssh = {
-  #   package = pkgs.openssh; # Явное указание пакета
-  #   startAgent = true; # Автозапуск ssh-agent
-  # };
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-  };
-  programs.appimage = {
-    enable = true;
-    binfmt = true;
   };
 
   # Enable the X11 windowing system.
@@ -75,7 +55,6 @@
   };
   # Install firefox.
   programs.firefox.enable = true;
-  programs.command-not-found.enable = true;
   programs.command-not-found.dbPath = programs-sqlite-db;
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05";
