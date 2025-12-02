@@ -36,7 +36,7 @@
     #     XCURSOR_SIZE = "24";
     #   };
     # })
-    # 
+    
     vlc
     unrar-free
     prismlauncher

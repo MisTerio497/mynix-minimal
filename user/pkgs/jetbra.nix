@@ -1,49 +1,52 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  ...
+}:
 
 let
-  url = "https://www.kdaiyu.com/3.jetbra.in/files/jetbra-2024.zip";
+  jetbra = pkgs.stdenv.mkDerivation rec{
+  pname = "jetbra";
+  version = "2024";
 
-  jetbrainsFiles = pkgs.stdenv.mkDerivation {
-    name = "jetbrains-vmoptions";
-
-    src = pkgs.fetchurl {
-      url = url;
-      sha256 = "sha256-0rg8hqvqkq4anj4brh0igshgk940mbd6417ky584y9j3hvp47mfm";
-    };
-
-    buildInputs = [ pkgs.unzip ];
-
-    buildCommand = ''
-      mkdir -p $out
-      unzip $src -d $out
-
-      # добавляем безопасную строку
-      for f in $out/vmoptions/*.vmoptions; do
-        echo "-javaagent:$out/ja-netfilter.jar=jetbrains" >> "$f"
-      done
-    '';
+  src = pkgs.fetchurl {
+    url = "https://www.kdaiyu.com/3.jetbra.in/files/${pname}-${version}.zip";
+    sha256 = "sha256-1dVD7oZDJk9Q8fMEYtqqgKT5oH4RwLyItIrgiTeG6GU=";
   };
 
-in
+  nativeBuildInputs = with pkgs;[ unzip ];
+
+  unpackPhase = ''
+    mkdir -p $out
+    unzip $src -d $out
+  '';
+
+  installPhase = ''
+    # patch vmoptions
+    for f in $out/${pname}/vmoptions/*.vmoptions; do
+      echo "-javaagent:$out/ja-netfilter.jar=jetbrains" >> "$f"
+    done
+  '';
+  };
+in 
 {
   home.sessionVariables = {
-    IDEA_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/idea.vmoptions";
-    CLION_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/clion.vmoptions";
-    PHPSTORM_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/phpstorm.vmoptions";
-    GOLAND_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/goland.vmoptions";
-    PYCHARM_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/pycharm.vmoptions";
-    WEBSTORM_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/webstorm.vmoptions";
-    WEBIDE_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/webide.vmoptions";
-    RIDER_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/rider.vmoptions";
-    DATAGRIP_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/datagrip.vmoptions";
-    RUBYMINE_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/rubymine.vmoptions";
-    DATASPELL_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/dataspell.vmoptions";
-    AQUA_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/aqua.vmoptions";
-    RUSTROVER_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/rustrover.vmoptions";
-    GATEWAY_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/gateway.vmoptions";
-    JETBRAINS_CLIENT_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/jetbrains_client.vmoptions";
-    JETBRAINSCLIENT_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/jetbrainsclient.vmoptions";
-    STUDIO_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/studio.vmoptions";
-    DEVECOSTUDIO_VM_OPTIONS = "${jetbrainsFiles}/vmoptions/devecostudio.vmoptions";
-  };
+      IDEA_VM_OPTIONS               = "${jetbra}/jetbra/vmoptions/idea.vmoptions";
+      CLION_VM_OPTIONS              = "${jetbra}/jetbra/vmoptions/clion.vmoptions";
+      PHPSTORM_VM_OPTIONS           = "${jetbra}/jetbra/vmoptions/phpstorm.vmoptions";
+      GOLAND_VM_OPTIONS             = "${jetbra}/jetbra/vmoptions/goland.vmoptions";
+      PYCHARM_VM_OPTIONS            = "${jetbra}/jetbra/vmoptions/pycharm.vmoptions";
+      WEBSTORM_VM_OPTIONS           = "${jetbra}/jetbra/vmoptions/webstorm.vmoptions";
+      WEBIDE_VM_OPTIONS             = "${jetbra}/jetbra/vmoptions/webide.vmoptions";
+      RIDER_VM_OPTIONS              = "${jetbra}/jetbra/vmoptions/rider.vmoptions";
+      DATAGRIP_VM_OPTIONS           = "${jetbra}/jetbra/vmoptions/datagrip.vmoptions";
+      RUBYMINE_VM_OPTIONS           = "${jetbra}/jetbra/vmoptions/rubymine.vmoptions";
+      DATASPELL_VM_OPTIONS          = "${jetbra}/jetbra/vmoptions/dataspell.vmoptions";
+      AQUA_VM_OPTIONS               = "${jetbra}/jetbra/vmoptions/aqua.vmoptions";
+      RUSTROVER_VM_OPTIONS          = "${jetbra}/jetbra/vmoptions/rustrover.vmoptions";
+      GATEWAY_VM_OPTIONS            = "${jetbra}/jetbra/vmoptions/gateway.vmoptions";
+      JETBRAINS_CLIENT_VM_OPTIONS   = "${jetbra}/jetbra/vmoptions/jetbrains_client.vmoptions";
+      JETBRAINSCLIENT_VM_OPTIONS    = "${jetbra}/jetbra/vmoptions/jetbrainsclient.vmoptions";
+      STUDIO_VM_OPTIONS             = "${jetbra}/jetbra/vmoptions/studio.vmoptions";
+      DEVECOSTUDIO_VM_OPTIONS       = "${jetbra}/jetbra/vmoptions/devecostudio.vmoptions";
+    };
 }
