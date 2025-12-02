@@ -8,7 +8,7 @@
     ./flatpak.nix
     #./stylix.nix
     ./shell.nix
-    ./../pkgs/jetbra.nix
+    #./../pkgs/jetbra.nix
     #./vesktop.nix
     #./spicetify.nix
     #./youtube-music.nix
