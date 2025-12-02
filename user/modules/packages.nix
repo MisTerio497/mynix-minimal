@@ -50,7 +50,7 @@
 
     # jetbrains-toolbox
     # jetbrains.idea-community-bin
-    # jetbrains.webstorm
+    jetbrains.webstorm
     # jetbrains.clion
     typescript
     _64gram

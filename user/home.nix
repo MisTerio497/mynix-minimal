@@ -15,9 +15,13 @@ in
     stateVersion = "25.11";
   };
   
-  home.sessionVariables = {
-    XCURSOR_SIZE=30;
+  home.pointerCursor = {
+    x11.enable = true;             # включить X11 курсор
+    name = "capitaine-cursors";          # имя темы курсора
+    size = 30;                     # размер курсора
+    package = pkgs.capitaine-cursors; # пакет с иконками/темой
   };
+
   
   nixpkgs.overlays = [
     (import ./overlays/prism-launcher.nix)

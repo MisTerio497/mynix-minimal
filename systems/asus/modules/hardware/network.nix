@@ -12,7 +12,7 @@
     107.150.34.100 plugins.jetbrains.com
     185.246.223.127 download.jetbrains.com
     185.246.223.127 api.jetbrains.ai
-    185.246.223.127 account.jetbrains.com";
+    ";
     proxy = {
       # allProxy = if config.services.sing-box.enable then "socks5://127.0.0.1:10808" else "";
       noProxy = "127.0.0.1,localhost,.local,.ru,nixos.org,cachix.org";

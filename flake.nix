@@ -83,7 +83,7 @@
             flake-programs-sqlite.nixosModules.programs-sqlite
             agenix.nixosModules.default
             ./systems/asus/configuration.nix
-            ./disko.nix
+            ./disko-lvm.nix
           ];
         };
 
